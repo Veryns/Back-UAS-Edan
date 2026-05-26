@@ -36,4 +36,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/students',             [StudentController::class, 'store']);
     Route::delete('/students/{studentId}', [StudentController::class, 'destroy']);
 });
- 
+
+
+Route::middleware('auth')->group(function () {
+    Route::post('/grades', [GradeController::class, 'store']);
+
+    Route::delete('/grades/{grade_id}', [GradeController::class, 'destroy']);
+});
