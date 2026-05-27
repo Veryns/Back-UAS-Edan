@@ -38,16 +38,20 @@ Route::middleware('auth')->group(function () {
     Route::post('/students',             [StudentController::class, 'store']);
     Route::delete('/students/{studentId}', [StudentController::class, 'destroy']);
 });
- 
 
 Route::middleware('auth')->group(function () {
-    Route::post('/grades', [GradeController::class, 'store']);
+    // POST
+    Route::post('/grades', [GradesController::class, 'store']);
 
-    Route::delete('/grades/{grade_id}', [GradeController::class, 'destroy']);
+    // DELETE
+    Route::delete('/api/grades/{grade_id}', [GradesController::class, 'destroy']);
+
+    // GET
+    Route::get('/api/grades/uts/{studentId}', [GradesController::class, 'getUTS']);
+
+    Route::get('/api/grades/uas/{studentId}', [GradesController::class, 'getUAS']);
+
+    Route::get('/api/grades/tugas/{studentId}', [GradesController::class, 'getTUGAS']);
 });
-
-Route::middleware('auth')->group(function () {
-
-Route::post('/grades', [GradesController::class, 'store']);
 
 Route::get('/uang-kuliah', [UangKuliahController::class, 'index']);

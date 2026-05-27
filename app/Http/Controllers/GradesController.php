@@ -39,4 +39,66 @@ class GradesController extends Controller
 
         return redirect('/grades');
     }
+
+    public function destroy($grade_id)
+    {
+        $grade = Grades::where('grade_id', $grade_id)->first();
+
+        if (!$grade) {
+            return response()->json([
+                'message' => 'Grade not found'
+            ], 404);
+        }
+
+        $grade->delete();
+
+        return response()->json([
+            'message' => 'Grade deleted successfully'
+        ]);
+    }
+
+    public function getUTS($studentId)
+    {
+        $grade = Grades::where('student_id', $studentId)
+                        ->where('type', 'UTS')
+                        ->first();
+
+        if (!$grade) {
+            return response()->json([
+                'message' => 'UTS grade not found'
+            ], 404);
+        }
+
+        return response()->json($grade);
+    }
+
+    public function getUAS($studentId)
+    {
+        $grade = Grades::where('student_id', $studentId)
+                        ->where('type', 'UAS')
+                        ->first();
+
+        if (!$grade) {
+            return response()->json([
+                'message' => 'UAS grade not found'
+            ], 404);
+        }
+
+        return response()->json($grade);
+    }
+
+    public function getTUGAS($studentId)
+    {
+        $grade = Grades::where('student_id', $studentId)
+                        ->where('type', 'TUGAS')
+                        ->first();
+
+        if (!$grade) {
+            return response()->json([
+                'message' => 'TUGAS grade not found'
+            ], 404);
+        }
+
+        return response()->json($grade);
+    }
 }
