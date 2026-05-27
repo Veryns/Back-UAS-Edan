@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bills', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis')->nullable();
-            $table->string('virtual_account')->nullable();
-            $table->date('deadline')->nullable();
-            $table->string('semester')->nullable();
-            $table->decimal('total_tagihan', 12, 2);
-            $table->string('status')->default('Belum Lunas');
+            $table->foreignId('bill_id')->constrained()->onDelete('cascade');
+            $table->decimal('jumlah_bayar', 12, 2);
+            $table->date('tanggal_bayar');
+            $table->string('metode')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bills');
+        Schema::dropIfExists('payments');
     }
 };
