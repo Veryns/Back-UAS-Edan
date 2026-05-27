@@ -8,7 +8,7 @@ use App\Http\Controllers\UangKuliahController;
 use App\Http\Controllers\GradesController;
 
 Route::get('/', function () {
-    return redirect('/posts');
+    return redirect('/home');
 });
 
 use Illuminate\Support\Facades\DB;
@@ -32,13 +32,22 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/students',              [StudentController::class, 'index']);
 Route::get('/students/{studentId}',  [StudentController::class, 'show']);
 Route::put('/students/{studentId}',  [StudentController::class, 'update']);
- 
+Route::resource('students', StudentController::class);
+
 // route protected yg harus pake authorization
 Route::middleware('auth')->group(function () {
+    Route::resource('students', StudentController::class);
     Route::post('/students',             [StudentController::class, 'store']);
     Route::delete('/students/{studentId}', [StudentController::class, 'destroy']);
 });
 
+Route::get('/uang-kuliah', [UangKuliahController::class, 'index']);
+
+// route untuk logout
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// route buat home
+Route::get('/home', [AuthController::class, 'home'])->middleware('auth')->name('home');
 Route::middleware('auth')->group(function () {
     // POST
     Route::post('/grades', [GradesController::class, 'store']);
