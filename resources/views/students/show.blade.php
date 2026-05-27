@@ -1,4 +1,4 @@
-<h1>Detail Mahasiswa</h1>
+<h1>Biodata Siswa</h1>
  
 <p><strong>NIM:</strong> {{ $student->student_id }}</p>
 <p><strong>Nama:</strong> {{ $student->name }}</p>
