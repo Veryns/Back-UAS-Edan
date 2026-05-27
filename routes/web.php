@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\UangKuliahController;
 use App\Http\Controllers\GradesController;
 
 Route::get('/', function () {
@@ -37,7 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/students',             [StudentController::class, 'store']);
     Route::delete('/students/{studentId}', [StudentController::class, 'destroy']);
 });
-
+ 
 
 Route::middleware('auth')->group(function () {
     Route::post('/grades', [GradeController::class, 'store']);
@@ -47,6 +48,6 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::post('/grades', [GradesController::class, 'store']);
+Route::post('/grades', [GradesController::class, 'store']);
 
-});
+Route::get('/uang-kuliah', [UangKuliahController::class, 'index']);

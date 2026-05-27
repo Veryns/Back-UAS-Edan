@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    /*
+    /* Helper
     function buat bikin unique id 9 digit
     */ 
     private function generateStudentId(): int
@@ -23,58 +23,83 @@ class StudentController extends Controller
         return $next;
     }
     /**
-     * Display a listing of the resource.
+     * GET Students
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
+        return response()->json(Student::all());
     }
 
     /**
-     * Show the form for creating a new resource.
+     * POST /students (pake auth)
      */
-    public function create()
+    public function store(Request $request): JsonResponse
     {
-        //
+        $request->validate([
+            'name'         => 'required|string|max:255',
+            'address'      => 'nullable|string|max:500',
+            'phone_number' => 'nullable|string|max:20',
+        ]);
+ 
+        $student = Student::create([
+            'student_id'   => $this->generateStudentId(),
+            'name'         => $request->name,
+            'address'      => $request->address,
+            'phone_number' => $request->phone_number,
+        ]);
+ 
+        return response()->json($student, 201);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * GET /students/{studentId}
      */
-    public function store(Request $request)
+    public function show(int $studentId): JsonResponse
     {
-        //
+        $student = Student::where('student_id', $studentId)->first();
+ 
+        if (! $student) {
+            return response()->json(['message' => 'Student does not exist.'], 404);
+        }
+ 
+        return response()->json($student);
     }
 
     /**
-     * Display the specified resource.
+     * PUT /students/{studentId} cuman bisa update alamat sama phone number
+     * 
      */
-    public function show(Student $student)
+    public function update(Request $request, int $studentId): JsonResponse
     {
-        //
+        $request->validate([
+            'address'      => 'nullable|string|max:500',
+            'phone_number' => 'nullable|string|max:20',
+        ]);
+ 
+        $student = Student::where('student_id', $studentId)->first();
+ 
+        if (! $student) {
+            return response()->json(['message' => 'Student not found.'], 404);
+        }
+ 
+        $student->update($request->only('address', 'phone_number'));
+ 
+        return response()->json($student);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     *  DELETE /students/{studentId} pake auth
      */
-    public function edit(Student $student)
+    public function destroy(int $studentId): JsonResponse
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Student $student)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Student $student)
-    {
-        //
+        $student = Student::where('student_id', $studentId)->first();
+ 
+        if (! $student) {
+            return response()->json(['message' => 'Student not found.'], 404);
+        }
+ 
+        $student->delete();
+ 
+        return response()->json(['message' => 'Student deleted successfully.']);
     }
 }
