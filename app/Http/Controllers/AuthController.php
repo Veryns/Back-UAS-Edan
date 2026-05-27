@@ -6,7 +6,7 @@
 
     class AuthController extends Controller{
         public function showLogin(){
-        return view('login');
+            return view('login');   
         }
 
         public function login(Request $request){
@@ -16,6 +16,7 @@
                 $request->session()->regenerate();
                 return redirect()->intended('/posts');
             }
-            return back()->withErrors(['email' => 'Invalid credentials.',]);
+            return back()->withErrors(['email' => 'Invalid credentials.',
+            ]);
         }
     }
