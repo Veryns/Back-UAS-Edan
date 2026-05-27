@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Student extends Model
+class Grades extends Model
 {
-    protected $fillable = ['student_id','type','score'];
+    protected $table = 'grades';
+
+    protected $fillable = ['grade_id','student_id','type','score'];
 }

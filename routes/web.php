@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\GradesController;
 
 Route::get('/', function () {
     return redirect('/posts');
@@ -42,4 +43,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/grades', [GradeController::class, 'store']);
 
     Route::delete('/grades/{grade_id}', [GradeController::class, 'destroy']);
+});
+
+Route::middleware('auth')->group(function () {
+
+    Route::post('/grades', [GradesController::class, 'store']);
+
 });
