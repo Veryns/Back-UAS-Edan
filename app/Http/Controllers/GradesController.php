@@ -101,4 +101,40 @@ class GradesController extends Controller
 
         return response()->json($grade);
     }
+
+public function index()
+{
+    $grades = Grades::all();
+    return view('grades.index', compact('grades'));
+}
+
+public function create()
+{
+    return view('grades.create');
+}
+
+public function show($grade_id)
+{
+    $grade = Grades::where('grade_id', $grade_id)->firstOrFail();
+    return view('grades.show', compact('grade'));
+}
+
+public function edit($grade_id)
+{
+    $grade = Grades::where('grade_id', $grade_id)->firstOrFail();
+    return view('grades.edit', compact('grade'));
+}
+
+public function update(Request $request, $grade_id)
+{
+    $grade = Grades::where('grade_id', $grade_id)->firstOrFail();
+
+    $grade->update([
+        'type' => $request->type,
+        'score' => $request->score
+    ]);
+
+    return redirect('/grades');
+}
+
 }

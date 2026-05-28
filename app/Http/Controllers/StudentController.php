@@ -25,15 +25,21 @@ class StudentController extends Controller
     /**
      * GET Students
      */
-    public function index(): JsonResponse
+    public function index(Request $request)
     {
-        return response()->json(Student::all());
+        $students = Student::all();
+
+        if ($request->wantsJson()) {
+            return response()->json($students);
+        }
+
+        return view('students.index', ['students' => $students]);
     }
 
     /**
      * POST /students (pake auth)
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request)
     {
         $request->validate([
             'name'         => 'required|string|max:255',
@@ -47,51 +53,105 @@ class StudentController extends Controller
             'address'      => $request->address,
             'phone_number' => $request->phone_number,
         ]);
- 
-        return response()->json($student, 201);
+
+        if ($request->wantsJson()) {
+            return response()->json($student, 201);
+        }
+
+        return redirect()->route('students.index')->with('success', 'Student added successfully.');
     }
 
     /**
      * GET /students/{studentId}
      */
-    public function show(int $studentId): JsonResponse
+    public function show(Request $request, $studentId)
     {
+        $studentId = (int) $studentId;
         $student = Student::where('student_id', $studentId)->first();
- 
+
         if (! $student) {
-            return response()->json(['message' => 'Student does not exist.'], 404);
+            if ($request->wantsJson()) {
+                return response()->json(['message' => 'Student does not exist.'], 404);
+            }
+
+            abort(404, 'Student does not exist.');
         }
- 
-        return response()->json($student);
+
+        if ($request->wantsJson()) {
+            return response()->json($student);
+        }
+
+        return view('students.show', ['student' => $student]);
+    }
+
+    /**
+     * Show form to create a new student
+     */
+    public function create()
+    {
+        return view('students.create');
+    }
+
+    /**
+     * Show form to edit an existing student
+     */
+    public function edit(Request $request, $studentId)
+    {
+        $studentId = (int) $studentId;
+        $student = Student::where('student_id', $studentId)->first();
+
+        if (! $student) {
+            if ($request->wantsJson()) {
+                return response()->json(['message' => 'Student not found.'], 404);
+            }
+
+            abort(404, 'Student not found.');
+        }
+
+        if ($request->wantsJson()) {
+            return response()->json($student);
+        }
+
+        return view('students.edit', ['student' => $student]);
     }
 
     /**
      * PUT /students/{studentId} cuman bisa update alamat sama phone number
      * 
      */
-    public function update(Request $request, int $studentId): JsonResponse
+    public function update(Request $request, $studentId)
     {
+        $studentId = (int) $studentId;
         $request->validate([
             'address'      => 'nullable|string|max:500',
             'phone_number' => 'nullable|string|max:20',
         ]);
- 
+
         $student = Student::where('student_id', $studentId)->first();
- 
+
         if (! $student) {
-            return response()->json(['message' => 'Student not found.'], 404);
+            if ($request->wantsJson()) {
+                return response()->json(['message' => 'Student not found.'], 404);
+            }
+
+            return redirect()->route('students.index')->with('error', 'Student not found.');
         }
- 
+
         $student->update($request->only('address', 'phone_number'));
- 
-        return response()->json($student);
+
+        if ($request->wantsJson()) {
+            return response()->json($student);
+        }
+
+        return redirect()->route('students.index')->with('success', 'Data updated successfully.');
     }
 
     /**
      *  DELETE /students/{studentId} pake auth
      */
-    public function destroy(int $studentId): JsonResponse
+    public function destroy($studentId): JsonResponse
     {
+        $studentId = (int) $studentId;
         $student = Student::where('student_id', $studentId)->first();
  
         if (! $student) {

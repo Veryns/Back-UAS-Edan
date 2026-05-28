@@ -1,5 +1,13 @@
 <h1>Daftar Mahasiswa</h1>
 
+@if (session('success'))
+    <div style="color:green; margin-bottom:10px;">{{ session('success') }}</div>
+@endif
+
+@if (session('error'))
+    <div style="color:red; margin-bottom:10px;">{{ session('error') }}</div>
+@endif
+
 <a href="{{ route('students.create') }}">Tambah Mahasiswa</a>
 <br><br>
 
