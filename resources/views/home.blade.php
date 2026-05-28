@@ -11,8 +11,14 @@
                 <button>Daftar Post</button>
             </a>
 
+            <!-- tombol student -->
             <a href="{{ route('students.index') }}">
                 <button>Student</button>
+            </a>
+
+            <!-- tombol Matkul -->
+            <a href="{{ route('matkul.index') }}">
+                <button>Mata Kuliah</button>
             </a>
 
             <!-- tombol logout -->
