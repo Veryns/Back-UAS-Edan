@@ -14,9 +14,22 @@
             ]);
             if (Auth::attempt($credentials)) {
                 $request->session()->regenerate();
-                return redirect()->intended('/posts');
+                return redirect()->intended('/home');
             }
             return back()->withErrors(['email' => 'Invalid credentials.',
             ]);
+        }
+
+        // fungsi buat logout
+        public function logout(Request $request){
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return redirect('/login');
+        }
+
+        // fungsi buat home
+        public function home(){
+            return view('home');
         }
     }
