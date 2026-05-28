@@ -6,7 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UangKuliahController;
 use App\Http\Controllers\GradesController;
-
+use App\Http\Controllers\MatkulController;
 Route::get('/', function () {
     return redirect('/home');
 });
@@ -64,3 +64,11 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/uang-kuliah', [UangKuliahController::class, 'index']);
+
+// route untuk matkul
+route::get('/matkul',[MatkulController::class, 'index']);
+route::get('/matkul/{id}',[MatkulController::class, 'show']);
+route::post('/matkul',[MatkulController::class, 'store']);
+route::put('/matkul/{id}',[MatkulController::class, 'update']);
+route::delete('/matkul{id}',[MatkulController::class, 'destroy']);
+route::resource('matkul', MatkulController::class);
