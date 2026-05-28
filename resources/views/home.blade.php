@@ -15,6 +15,13 @@
                 <button>Student</button>
             </a>
 
+            <br>
+
+            <!-- grades -->
+            <a href="{{ url('/home/grades') }}">
+                <button>Grades</button>
+            </a>
+
             <!-- tombol logout -->
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

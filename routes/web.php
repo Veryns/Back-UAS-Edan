@@ -61,6 +61,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/api/grades/uas/{studentId}', [GradesController::class, 'getUAS']);
 
     Route::get('/api/grades/tugas/{studentId}', [GradesController::class, 'getTUGAS']);
+
+    Route::resource('/home/grades', GradesController::class);
 });
 
 Route::get('/uang-kuliah', [UangKuliahController::class, 'index']);
