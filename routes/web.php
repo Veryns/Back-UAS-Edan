@@ -27,18 +27,13 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
 
-//students
-// route public buat students
-Route::get('/students',              [StudentController::class, 'index']);
-Route::get('/students/{studentId}',  [StudentController::class, 'show']);
-Route::put('/students/{studentId}',  [StudentController::class, 'update']);
-Route::resource('students', StudentController::class);
+// students: public read routes, protected write routes
+Route::resource('students', StudentController::class)->except(['store', 'update', 'destroy']);
 
-// route protected yg harus pake authorization
 Route::middleware('auth')->group(function () {
-    Route::resource('students', StudentController::class);
-    Route::post('/students',             [StudentController::class, 'store']);
-    Route::delete('/students/{studentId}', [StudentController::class, 'destroy']);
+    Route::post('/students', [StudentController::class, 'store'])->name('students.store');
+    Route::put('/students/{studentId}', [StudentController::class, 'update'])->name('students.update');
+    Route::delete('/students/{studentId}', [StudentController::class, 'destroy'])->name('students.destroy');
 });
 
 Route::get('/uang-kuliah', [UangKuliahController::class, 'index']);
