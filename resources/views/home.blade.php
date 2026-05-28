@@ -11,6 +11,7 @@
                 <button>Daftar Post</button>
             </a>
 
+            <!-- tombol student -->
             <a href="{{ route('students.index') }}">
                 <button>Student</button>
             </a>
