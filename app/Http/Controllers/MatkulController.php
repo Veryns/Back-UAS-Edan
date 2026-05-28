@@ -9,8 +9,8 @@
 
         public function index()
         {
-            $matkuls = Matkul::all();
-            return view('matkul.index', compact('matkuls'));
+            $matkul = Matkul::all();
+            return view('matkul.index', compact('matkul'));
         }
 
         public function create()

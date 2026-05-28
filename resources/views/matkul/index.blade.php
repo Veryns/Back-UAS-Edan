@@ -7,12 +7,12 @@
 <table border="1">
     <tr>
         <th>Nama</th>
-        <th>Kode</th>
+        <th>Kode MatKul</th>
         <th>SKS</th>
         <th>Dosen</th>
         <th>Opsi</th>
     </tr>
-    @foreach($matkuls as $matkul)
+    @foreach($matkul as $matkul)
     <tr>
         <td>{{ $matkul->nama }}</td>
         <td>{{ $matkul->kodematkul }}</td>
