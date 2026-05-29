@@ -21,6 +21,11 @@
                 <button>Mata Kuliah</button>
             </a>
 
+            <!-- tombol Uang Kuliah -->
+            <a href="{{ route('uang-kuliah.index') }}">
+                <button>Uang Kuliah</button>
+            </a>
+
             <!-- tombol logout -->
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
