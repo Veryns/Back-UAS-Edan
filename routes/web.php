@@ -61,6 +61,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/uang-kuliah', [UangKuliahController::class, 'index']);
+Route::resource('/uang-kuliah', UangKuliahController::class);
 
 // route untuk matkul
 route::get('/matkul',[MatkulController::class, 'index']);

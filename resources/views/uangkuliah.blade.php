@@ -45,3 +45,7 @@
         </tr>
     @endforeach
 </table>
+
+<a href="{{ route('home') }}">
+    <button>Kembali</button>
+</a>
