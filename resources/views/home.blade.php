@@ -16,9 +16,11 @@
                 <button>Student</button>
             </a>
 
-            <!-- tombol Matkul -->
-            <a href="{{ route('matkul.index') }}">
-                <button>Mata Kuliah</button>
+            <br>
+
+            <!-- grades -->
+            <a href="{{ url('/home/grades') }}">
+                <button>Grades</button>
             </a>
 
             <!-- tombol Uang Kuliah -->

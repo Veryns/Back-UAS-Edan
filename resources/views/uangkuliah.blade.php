@@ -22,6 +22,10 @@
         @php
             $payment = $bill->payments->first();
             $totalBayar = $bill->payments->sum('jumlah_bayar');
+            $tanggalDendae = $payment ? $payment->tanggal_bayar : now()->toDateString();
+            $denda = $bill->hitungDenda($tanggalDendae);
+            $totalRincian = $bill->total_tagihan + $denda;
+            $lunas = $totalBayar >= $totalRincian;
         @endphp
 
         <tr>
@@ -30,11 +34,14 @@
             <td>{{ $bill->virtual_account ?? '18888535250087' }}</td>
             <td>{{ $bill->deadline ?? '-' }}</td>
             <td>Rp {{ number_format($bill->total_tagihan) }}</td>
-            <td>Rp {{ number_format($bill->total_tagihan) }}</td>
+            <td>
+            {{ $bill->jenis ?? 'Uang Kuliah' }}         : Rp {{ number_format($bill->total_tagihan) }}<br>
+            Denda {{ $bill->jenis ?? 'Uang Kuliah' }}   : Rp {{ number_format($denda) }}<br>
+            </td>
             <td>{{ $payment->metode ?? 'MANDIRI' }}</td>
             <td>{{ $payment->tanggal_bayar ?? '-' }}</td>
             <td>Rp {{ number_format($totalBayar) }}</td>
-            <td>{{ $totalBayar >= $bill->total_tagihan ? 'LUNAS' : 'BELUM LUNAS' }}</td>
+            <td>{{ $lunas ? 'LUNAS' : 'BELUM LUNAS' }}</td>
         </tr>
     @endforeach
 </table>
