@@ -13,9 +13,7 @@ class GradesController extends Controller
     private function generateGradeId(): int
     {
         $last = Grades::orderByDesc('grade_id')->value('grade_id');
-
         $next = $last ? $last + 1 : 1;
-
         return $next;
     }
 
@@ -37,7 +35,7 @@ class GradesController extends Controller
             'score' => $request->score
         ]);
 
-        return redirect('/grades');
+        return redirect('/home/grades');
     }
 
     public function destroy($grade_id)
@@ -134,7 +132,20 @@ public function update(Request $request, $grade_id)
         'score' => $request->score
     ]);
 
-    return redirect('/grades');
+    return redirect('/home/grades');
 }
+
+public function getStudentGrades($studentId)
+{
+    $grades = Grades::where('student_id', $studentId)->get();
+
+    if ($grades->isEmpty()) {
+        return redirect()->route('grades.index')
+                         ->with('error', 'Student grades not found');
+    }
+
+    return view('grades.student_grades', compact('grades', 'studentId'));
+}
+
 
 }

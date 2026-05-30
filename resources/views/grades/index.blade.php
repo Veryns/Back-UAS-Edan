@@ -1,3 +1,19 @@
+<h2>Cari Nilai Mahasiswa</h2>
+
+<form id="studentSearch">
+    <input type="number" id="studentId" placeholder="Student ID" required>
+    <button type="submit">Cari</button>
+</form>
+
+<script>
+document.getElementById('studentSearch').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const studentId = document.getElementById('studentId').value;
+    window.location.href = '/grades/' + studentId;
+});
+</script>
+
+
 <h1>Daftar Nilai</h1>
 
 <a href="{{ route('grades.create') }}">Tambah Nilai</a>
