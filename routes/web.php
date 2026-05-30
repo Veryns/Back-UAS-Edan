@@ -64,3 +64,7 @@ route::post('/matkul',[MatkulController::class, 'store']);
 route::put('/matkul/{id}',[MatkulController::class, 'update']);
 route::delete('/matkul{id}',[MatkulController::class, 'destroy']);
 route::resource('matkul', MatkulController::class);
+
+// route untuk register
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.store');

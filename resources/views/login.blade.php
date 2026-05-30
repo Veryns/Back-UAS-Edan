@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>Login</title>
@@ -20,7 +21,14 @@
         <label>Password:</label><br>
         <input type="password" name="password"><br><br>
 
-        <button type="submit">Login</button>
+        <button type="submit">Login</button><br><br>
     </form>
+
+    <h2>Belum punya akun? Daftar sekarang</h2>
+
+    <a href="{{ route('register')}}">
+        <button>Daftar</button>
+    </a>
+
 </body>
 </html>
