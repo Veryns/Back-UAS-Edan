@@ -11,6 +11,7 @@
                 <button>Daftar Post</button>
             </a>
 
+            <!-- tombol student -->
             <a href="{{ route('students.index') }}">
                 <button>Student</button>
             </a>
@@ -20,6 +21,11 @@
             <!-- grades -->
             <a href="{{ url('/home/grades') }}">
                 <button>Grades</button>
+            </a>
+
+            <!-- tombol Uang Kuliah -->
+            <a href="/uang-kuliah/menu">
+                <button>Uang Kuliah</button>
             </a>
 
             <!-- tombol logout -->

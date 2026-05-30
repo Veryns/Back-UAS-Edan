@@ -6,7 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UangKuliahController;
 use App\Http\Controllers\GradesController;
-
+use App\Http\Controllers\MatkulController;
 Route::get('/', function () {
     return redirect('/home');
 });
@@ -27,18 +27,13 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
 
-//students
-// route public buat students
-Route::get('/students',              [StudentController::class, 'index']);
-Route::get('/students/{studentId}',  [StudentController::class, 'show']);
-Route::put('/students/{studentId}',  [StudentController::class, 'update']);
-Route::resource('students', StudentController::class);
+// students: public read routes, protected write routes
+Route::resource('students', StudentController::class)->except(['store', 'update', 'destroy']);
 
-// route protected yg harus pake authorization
 Route::middleware('auth')->group(function () {
-    Route::resource('students', StudentController::class);
-    Route::post('/students',             [StudentController::class, 'store']);
-    Route::delete('/students/{studentId}', [StudentController::class, 'destroy']);
+    Route::post('/students', [StudentController::class, 'store'])->name('students.store');
+    Route::put('/students/{studentId}', [StudentController::class, 'update'])->name('students.update');
+    Route::delete('/students/{studentId}', [StudentController::class, 'destroy'])->name('students.destroy');
 });
 
 Route::get('/uang-kuliah', [UangKuliahController::class, 'index']);
@@ -55,4 +50,17 @@ Route::middleware('auth')->group(function () {
     
 });
 
-Route::get('/uang-kuliah', [UangKuliahController::class, 'index']);
+Route::prefix('uang-kuliah')->group(function () {
+    Route::get('/', [UangKuliahController::class, 'index']);
+    Route::get('/menu', [UangKuliahController::class, 'menu']);
+    Route::get('/payment-scheme', [UangKuliahController::class, 'showScheme']);
+    Route::post('/payment-scheme', [UangKuliahController::class, 'saveScheme']);
+});
+
+// route untuk matkul
+route::get('/matkul',[MatkulController::class, 'index']);
+route::get('/matkul/{id}',[MatkulController::class, 'show']);
+route::post('/matkul',[MatkulController::class, 'store']);
+route::put('/matkul/{id}',[MatkulController::class, 'update']);
+route::delete('/matkul{id}',[MatkulController::class, 'destroy']);
+route::resource('matkul', MatkulController::class);
