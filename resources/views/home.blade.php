@@ -7,31 +7,39 @@
             <h1>Welcome, {{ Auth::user()->name }}</h1>
 
             <!-- tombol post -->
-            <a href="{{ route('posts.index') }}">
-                <button>Daftar Post</button>
-            </a>
+            <div>
+                <a href="{{ route('posts.index') }}">
+                    <button>Daftar Post</button>
+                </a>
+            </div>
 
             <!-- tombol student -->
-            <a href="{{ route('students.index') }}">
-                <button>Student</button>
-            </a>
-
-            <br>
+            <div>
+                <a href="{{ route('students.index') }}">
+                    <button>Student</button>
+                </a>
+            </div>
 
             <!-- grades -->
-            <a href="{{ url('/home/grades') }}">
-                <button>Grades</button>
-            </a>
+            <div>
+                <a href="{{ url('/home/grades') }}">
+                    <button>Grades</button>
+                </a>
+            </div>
 
             <!-- tombol Uang Kuliah -->
-            <a href="/uang-kuliah/menu">
-                <button>Uang Kuliah</button>
-            </a>
+            <div>
+                <a href="/uang-kuliah/menu">
+                    <button>Uang Kuliah</button>
+                </a>
+            </div>
 
             <!-- tombol logout -->
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit">Logout</button>
-            </form>
+            <div>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit">Logout</button>
+                </form>
+            </div>
         </body>
     </html>
