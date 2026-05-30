@@ -13,15 +13,10 @@ return new class extends Migration
     {
         Schema::create('grades', function (Blueprint $table) {
             $table->id(); // primary key auto increment
-
             $table->unsignedBigInteger('grade_id')->unique();
-
             $table->unsignedBigInteger('student_id');
-
             $table->enum('type', ['UTS', 'UAS', 'TUGAS']);
-
             $table->integer('score');
-
             $table->timestamps();
         });
     }

@@ -44,20 +44,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // route buat home
 Route::get('/home', [AuthController::class, 'home'])->middleware('auth')->name('home');
 Route::middleware('auth')->group(function () {
-    // POST
-    Route::post('/grades', [GradesController::class, 'store']);
 
-    // DELETE
-    Route::delete('/api/grades/{grade_id}', [GradesController::class, 'destroy']);
-
-    // GET
-    Route::get('/api/grades/uts/{studentId}', [GradesController::class, 'getUTS']);
-
-    Route::get('/api/grades/uas/{studentId}', [GradesController::class, 'getUAS']);
-
-    Route::get('/api/grades/tugas/{studentId}', [GradesController::class, 'getTUGAS']);
-
+    Route::get('/grades/{studentId}', [GradesController::class, 'getStudentGrades']);
     Route::resource('/home/grades', GradesController::class);
+    
 });
 
 Route::prefix('uang-kuliah')->group(function () {
