@@ -24,7 +24,7 @@
             </a>
 
             <!-- tombol Uang Kuliah -->
-            <a href="{{ route('uang-kuliah.index') }}">
+            <a href="/uang-kuliah/menu">
                 <button>Uang Kuliah</button>
             </a>
 

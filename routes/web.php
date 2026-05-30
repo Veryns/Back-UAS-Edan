@@ -60,8 +60,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('/home/grades', GradesController::class);
 });
 
-Route::get('/uang-kuliah', [UangKuliahController::class, 'index']);
-Route::resource('/uang-kuliah', UangKuliahController::class);
+Route::prefix('uang-kuliah')->group(function () {
+    Route::get('/', [UangKuliahController::class, 'index']);
+    Route::get('/menu', [UangKuliahController::class, 'menu']);
+    Route::get('/payment-scheme', [UangKuliahController::class, 'showScheme']);
+    Route::post('/payment-scheme', [UangKuliahController::class, 'saveScheme']);
+});
 
 // route untuk matkul
 route::get('/matkul',[MatkulController::class, 'index']);
