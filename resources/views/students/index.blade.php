@@ -1,52 +1,63 @@
-<h1>Daftar Mahasiswa</h1>
+@extends('layouts.app')
+
+@section('title', 'Daftar Mahasiswa')
+
+@section('content')
+
+<div class="page-header">
+    <h1>Daftar Mahasiswa</h1>
+    <a href="{{ route('students.create') }}" class="btn btn-primary">+ Tambah Mahasiswa</a>
+</div>
 
 @if (session('success'))
-    <div style="color:green; margin-bottom:10px;">{{ session('success') }}</div>
+    <div class="alert alert-success">{{ session('success') }}</div>
 @endif
 
 @if (session('error'))
-    <div style="color:red; margin-bottom:10px;">{{ session('error') }}</div>
+    <div class="alert alert-error">{{ session('error') }}</div>
 @endif
 
-<a href="{{ route('students.create') }}">Tambah Mahasiswa</a>
-<br><br>
-
-@if ($students->isEmpty())
-    <p>Belum ada mahasiswa yang tersimpan.</p>
-@else
-    <table border="1" cellpadding="5" cellspacing="0">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>NIM</th>
-                <th>Nama</th>
-                <th>Alamat</th>
-                <th>No. Telepon</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($students as $student)
+<div class="card">
+    @if ($students->isEmpty())
+        <div class="empty">Belum ada mahasiswa yang tersimpan.</div>
+    @else
+        <table>
+            <thead>
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>
-                        <a href="{{ route('students.show', $student->student_id) }}">
-                            {{ $student->student_id }}
-                        </a>
-                    </td>
-                    <td>{{ $student->name }}</td>
-                    <td>{{ $student->address ?? '-' }}</td>
-                    <td>{{ $student->phone_number ?? '-' }}</td>
-                    <td>
-                        <a href="{{ route('students.edit', $student->student_id) }}">Ubah</a>
-                        <form action="{{ route('students.destroy', $student->student_id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">Hapus</button>
-                        </form>
-                    </td>
+                    <th>No</th>
+                    <th>NIM</th>
+                    <th>Nama</th>
+                    <th>Alamat</th>
+                    <th>No. Telepon</th>
+                    <th>Aksi</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
-@endif
+            </thead>
+            <tbody>
+                @foreach ($students as $student)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>
+                            <a href="{{ route('students.show', $student->student_id) }}" class="link">
+                                {{ $student->student_id }}
+                            </a>
+                        </td>
+                        <td>{{ $student->name }}</td>
+                        <td>{{ $student->address ?? '-' }}</td>
+                        <td>{{ $student->phone_number ?? '-' }}</td>
+                        <td style="display:flex; gap:8px; align-items:center;">
+                            <a href="{{ route('students.edit', $student->student_id) }}" class="btn btn-secondary btn-sm">Ubah</a>
+                            <form action="{{ route('students.destroy', $student->student_id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Hapus mahasiswa ini?')">Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
+</div>
+
+@endsection
