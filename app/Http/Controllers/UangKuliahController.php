@@ -20,15 +20,18 @@ class UangKuliahController extends Controller
         return view('uangkuliah.uangkuliah', compact('bills'));
     }
     public function showScheme(){
-        return view('uangkuliah.payment_scheme');
+        $scheme = PaymentScheme::where('student_id',auth()->id())->first();
+        return view('uangkuliah.payment_scheme',compact('scheme'));
     }
     public function saveScheme(Request $request){
         $student = auth()->user();
-
+        
         PaymentScheme::updateOrCreate(
-        ['student_id' => $student->id],
-        ['scheme_type' => $request->scheme]
+            ['student_id' => $student->id],
+            ['scheme_type' => $request->scheme]
         );
+
+        Bill::where('status', 'Belum Lunas')->delete();
 
         $bppBase = 9000000;
         $sksBase = 8000000;
