@@ -7,6 +7,8 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UangKuliahController;
 use App\Http\Controllers\GradesController;
 use App\Http\Controllers\MatkulController;
+use App\Http\Controllers\SkpiController;
+
 Route::get('/', function () {
     return redirect('/home');
 });
@@ -68,3 +70,6 @@ route::resource('matkul', MatkulController::class);
 // route untuk register
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.store');
+
+// route untuk skpi
+Route::resource('skpi', SkpiController::class);

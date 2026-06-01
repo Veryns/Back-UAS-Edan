@@ -34,6 +34,13 @@
                 </a>
             </div>
 
+            <!-- tombol skpi -->
+            <div>
+                <a href="{{ route('skpi.index') }}">
+                    <button>SKPI</button>
+            </a>
+            </div>
+
             <!-- tombol logout -->
             <div>
                 <form method="POST" action="{{ route('logout') }}">
