@@ -31,7 +31,7 @@
         <tr>
             <td>{{ $index + 1 }}</td>
             <td>{{ $bill->jenis ?? 'Uang Kuliah semester' }}</td>
-            <td>{{ $bill->virtual_account ?? '18888535250087' }}</td>
+            <td>{{ $bill->virtual_account ?? '188885352500' }}</td>
             <td>{{ $bill->deadline ?? '-' }}</td>
             <td>Rp {{ number_format($bill->total_tagihan) }}</td>
             <td>

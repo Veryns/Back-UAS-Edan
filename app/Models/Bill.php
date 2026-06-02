@@ -7,7 +7,7 @@ use Carbon\Carbon;
 
 class Bill extends Model
 {
-    protected $fillable = ['semester','jenis','virtual_account','deadline','total_tagihan','status'];
+    protected $fillable = ['student_id','semester','jenis','virtual_account','deadline','total_tagihan','status'];
     public function hitungDenda($tanggalBayar = null){
         if(!$this->deadline) return 0;
 
