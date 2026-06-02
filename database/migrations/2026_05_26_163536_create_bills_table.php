@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('student_id');
             $table->string('jenis')->nullable();
             $table->string('virtual_account')->nullable();
             $table->date('deadline')->nullable();
