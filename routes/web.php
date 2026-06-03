@@ -8,6 +8,7 @@ use App\Http\Controllers\UangKuliahController;
 use App\Http\Controllers\GradesController;
 use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\SkpiController;
+use App\Http\Controllers\IPKController;
 
 Route::get('/', function () {
     return redirect('/home');
@@ -73,3 +74,6 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.st
 
 // route untuk skpi
 Route::resource('skpi', SkpiController::class);
+
+//route untuk IPK
+Route::get('/students/{student}/ipk', [IPKController::class, 'show']);
