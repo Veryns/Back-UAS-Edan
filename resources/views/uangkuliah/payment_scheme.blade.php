@@ -22,7 +22,7 @@
     <br><br>
 
     <input type="radio" name="scheme" value="INSTALLMENT" {{ ($scheme && $scheme->scheme_type == 'INSTALLMENT') ? 'checked' : '' }}>
-    <b>TERMIN</b>
+    <b>INSTALLMENT</b>
 
     <br>
     Termin 1 : Rp 5.535.000
