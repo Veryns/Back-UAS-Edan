@@ -1,7 +1,10 @@
 <h1>Tagihan & Pembayaran</h1>
 
-<table border="1" cellpadding="10">
-    <tr>
+<p><b>Mahasiswa :</b> {{ $student->name }}({{ $student->student_id }})</p>
+<p><b>Semester :</b> {{ $bills->first()->semester ?? '-' }}</p>
+<br>
+<table border="1" cellpadding="10" style="border-collapse:collapse;">
+    <tr style="background-color:#d9d9d9;">
         <th rowspan="2">No</th>
         <th rowspan="2">Jenis</th>
         <th rowspan="2">No. Virtual Account</th>
@@ -12,7 +15,7 @@
         <th rowspan="2">Status</th>
     </tr>
 
-    <tr>
+    <tr style="background-color:#d9d9d9;">
         <th>Bank</th>
         <th>Tanggal</th>
         <th>Nominal</th>
@@ -28,7 +31,7 @@
             $lunas = $totalBayar >= $totalRincian;
         @endphp
 
-        <tr>
+        <tr style="background-color:#b7d6d6;">
             <td>{{ $index + 1 }}</td>
             <td>{{ $bill->jenis ?? 'Uang Kuliah semester' }}</td>
             <td>{{ $bill->virtual_account ?? '188885352500' }}</td>
