@@ -41,6 +41,13 @@
             </a>
             </div>
 
+            <!-- tombol matkul -->
+            <div>
+                <a href="{{ route('matkul.index') }}">
+                    <button>Mata Kuliah</button>
+                </a>
+            </div>
+
             <!-- tombol logout -->
             <div>
                 <form method="POST" action="{{ route('logout') }}">

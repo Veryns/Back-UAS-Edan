@@ -12,9 +12,7 @@ class Matkul extends Model
         'kodematkul',
         'sks',
         'deskripsi',
-        'nama_dosen',
-        'nip_dosen',
-        'email_dosen',
+        'dosen',
         'kodemsteam',
     ];
 }

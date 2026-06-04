@@ -60,12 +60,13 @@ Route::prefix('uang-kuliah')->group(function () {
 });
 
 // route untuk matkul
-route::get('/matkul',[MatkulController::class, 'index']);
-route::get('/matkul/{id}',[MatkulController::class, 'show']);
-route::post('/matkul',[MatkulController::class, 'store']);
-route::put('/matkul/{id}',[MatkulController::class, 'update']);
-route::delete('/matkul{id}',[MatkulController::class, 'destroy']);
-route::resource('matkul', MatkulController::class);
+// Route::get('/matkul',[MatkulController::class, 'index']);
+// Route::get('/matkul/{id}',[MatkulController::class, 'show']);
+// Route::get('/matkul/create', [MatkulController::class, 'create']);
+// Route::post('/matkul',[MatkulController::class, 'store']);
+// Route::put('/matkul/{id}',[MatkulController::class, 'update']);
+// Route::delete('/matkul{id}',[MatkulController::class, 'destroy']);
+Route::resource('matkul', MatkulController::class);
 
 // route untuk register
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
@@ -73,3 +74,8 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.st
 
 // route untuk skpi
 Route::resource('skpi', SkpiController::class);
+
+//route w5
+use App\Http\Controllers\CommentController; 
+ 
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
