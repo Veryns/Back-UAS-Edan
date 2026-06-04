@@ -17,5 +17,9 @@
         <button>Pilihan Skema Pembayaran</button>
     </a>
 
+    <a href="/uang-kuliah/dispensasi">
+        <button>Dispensasi</button>
+    </a>
+
 </body>
 </html>
