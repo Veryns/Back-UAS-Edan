@@ -9,6 +9,7 @@ use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\SkpiController;
 use App\Http\Controllers\IPKController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\DispensationController;
 
 Route::get('/', function () {
     return redirect('/home');
@@ -54,6 +55,8 @@ Route::prefix('uang-kuliah')->group(function () {
     Route::get('/menu', [UangKuliahController::class, 'menu']);
     Route::get('/payment-scheme', [UangKuliahController::class, 'showScheme']);
     Route::post('/payment-scheme', [UangKuliahController::class, 'saveScheme']);
+    Route::get('/dispensasi', [DispensationController::class, 'index']);
+    Route::post('/dispensasi', [DispensationController::class, 'store']);
 });
 
 // route untuk matkul
