@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bill;
 use App\Models\PaymentScheme;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -13,11 +14,12 @@ class UangKuliahController extends Controller
         return view('uangkuliah.menu');
     }
     public function index(){
+        $student = Student::find(auth()->id());
         $bills = Bill::where('student_id', auth()->id())->with('payments')->get();
         $bills->each(function($bill){
             $bill->terlambat = $bill->hitungDenda(Carbon::today()->toDateString()) > 0;
         });
-        return view('uangkuliah.uangkuliah', compact('bills'));
+        return view('uangkuliah.uangkuliah', compact('bills','student'));
     }
     public function showScheme(){
         $scheme = PaymentScheme::where('student_id',auth()->id())->first();
