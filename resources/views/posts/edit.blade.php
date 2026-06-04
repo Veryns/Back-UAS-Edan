@@ -13,3 +13,11 @@
     <br><br>
     <button type="submit">Simpan</button>
 </form>
+<div>
+    <h1>Tags</h1><br>
+    @foreach ($tags as $tag)
+        <input type="checkbox" name="tags[]" value="{{ $tag->id }}"
+            {{ $post->tags->contains($tag->id) ? 'checked' : '' }}>
+        {{ $tag->name }}<br>
+    @endforeach
+</div>

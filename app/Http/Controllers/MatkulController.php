@@ -33,19 +33,19 @@
             return redirect()->route('matkul.index');
         }
 
-        public function show(int $id)
+        public function show($id)
         {
             $matkul = Matkul::findOrFail($id);
             return view('matkul.show', compact('matkul'));
         }
 
-        public function edit(int $id)
+        public function edit($id)
         {
             $matkul = Matkul::findOrFail($id);
             return view('matkul.edit', compact('matkul'));
         }
 
-        public function update(Request $request, int $id)
+        public function update(Request $request, $id)
         {
             $matkul = Matkul::findOrFail($id);
             $matkul->update($request->only(
@@ -54,7 +54,7 @@
             return redirect()->route('matkul.index');
         }
 
-        public function destroy(int $id)
+        public function destroy($id)
         {
             Matkul::findOrFail($id)->delete();
             return redirect()->route('matkul.index');

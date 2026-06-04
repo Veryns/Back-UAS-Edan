@@ -12,6 +12,24 @@
             </a>
         </div>
 
+<<<<<<< HEAD
+            <!-- tombol matkul -->
+            <div>
+                <a href="{{ route('matkul.index') }}">
+                    <button>Mata Kuliah</button>
+                </a>
+            </div>
+
+            <!-- tombol logout -->
+            <div>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit">Logout</button>
+                </form>
+            </div>
+        </body>
+    </html>
+=======
         <div>
             <a href="{{ route('students.index') }}">
                 <button>Student</button>
@@ -44,3 +62,4 @@
         </div>
     </body>
 </html>
+>>>>>>> 3913f27da523941bcf95dccb652febef0f99b1d3

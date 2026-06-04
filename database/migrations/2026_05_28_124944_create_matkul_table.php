@@ -15,9 +15,7 @@ return new class extends Migration
             $table->integer('sks');
             $table->string('deskripsi')->nullable();
 
-            $table->string('nama_dosen')->nullable();
-            $table->string('nip_dosen')->nullable();
-            $table->string('email_dosen')->nullable();
+            $table->string('dosen')->nullable();
 
             $table->string('kodemsteam')->nullable();
             $table->timestamps(); 
