@@ -1,13 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UangKuliahController;
 use App\Http\Controllers\GradesController;
 use App\Http\Controllers\MatkulController;
 use App\Http\Controllers\SkpiController;
+use App\Http\Controllers\IPKController;
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\DispensationController;
 
 Route::get('/', function () {
@@ -21,16 +22,12 @@ Route::get('/vulnerable', function () {
     $user = DB::select("SELECT * FROM users WHERE name = ?", [$name]);
     return $user;
 });
-Route::resource('posts', PostController::class);
 
-Route::middleware('auth')->group(function() {
-    Route::resource('posts', PostController::class);
-});
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
 
-// students: public read routes, protected write routes
+//route untuk students
 Route::resource('students', StudentController::class)->except(['store', 'update', 'destroy']);
 
 Route::middleware('auth')->group(function () {
@@ -76,3 +73,11 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.st
 
 // route untuk skpi
 Route::resource('skpi', SkpiController::class);
+
+//route untuk IPK
+Route::get('/students/{student}/ipk', [IPKController::class, 'show']);
+
+//route untuk announcements
+Route::middleware('auth')->group(function () {
+    Route::resource('announcements', AnnouncementController::class);
+});
