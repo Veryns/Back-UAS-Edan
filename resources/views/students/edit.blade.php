@@ -44,6 +44,17 @@
             <a href="{{ route('students.show', $student->student_id) }}" class="btn btn-secondary">Batal</a>
         </div>
 
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" name="email" value="{{ old('email') }}" required>
+            @error('email') <div class="form-error">{{ $message }}</div> @enderror
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" required>
+            @error('password') <div class="form-error">{{ $message }}</div> @enderror
+        </div>
+
     </form>
 </div>
 

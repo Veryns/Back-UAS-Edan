@@ -12,7 +12,6 @@
             </a>
         </div>
 
-<<<<<<< HEAD
             <!-- tombol matkul -->
             <div>
                 <a href="{{ route('matkul.index') }}">
@@ -29,7 +28,6 @@
             </div>
         </body>
     </html>
-=======
         <div>
             <a href="{{ route('students.index') }}">
                 <button>Student</button>
@@ -62,4 +60,3 @@
         </div>
     </body>
 </html>
->>>>>>> 3913f27da523941bcf95dccb652febef0f99b1d3

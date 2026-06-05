@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
@@ -45,13 +46,17 @@ class StudentController extends Controller
             'name'         => 'required|string|max:255',
             'address'      => 'nullable|string|max:500',
             'phone_number' => 'nullable|string|max:20',
+            'email'        => 'required|email|unique:students,email',
+            'password'     => 'required|string|min:6',
         ]);
- 
+
         $student = Student::create([
             'student_id'   => $this->generateStudentId(),
             'name'         => $request->name,
             'address'      => $request->address,
             'phone_number' => $request->phone_number,
+            'email'        => $request->email,
+            'password'     => Hash::make($request->password),
         ]);
 
         if ($request->wantsJson()) {
