@@ -10,6 +10,7 @@ use App\Http\Controllers\SkpiController;
 use App\Http\Controllers\IPKController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\DispensationController;
+use App\Http\Controllers\StudentAuthController;
 
 Route::get('/', function () {
     return redirect('/home');
@@ -59,7 +60,7 @@ Route::prefix('uang-kuliah')->group(function () {
     Route::post('/dispensasi', [DispensationController::class, 'store']);
 });
 
-// route untuk matkul
+// route untuk matkul ga tau kenapa setelah say mencoba untuk memperbaiki error solusi nya adalah dengan menonaktifkan route ini
 // Route::get('/matkul',[MatkulController::class, 'index']);
 // Route::get('/matkul/{id}',[MatkulController::class, 'show']);
 // Route::get('/matkul/create', [MatkulController::class, 'create']);
@@ -75,12 +76,10 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.st
 // route untuk skpi
 Route::resource('skpi', SkpiController::class);
 
-<<<<<<< HEAD
 //route w5
 use App\Http\Controllers\CommentController; 
  
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
-=======
 //route untuk IPK
 Route::get('/students/{student}/ipk', [IPKController::class, 'show']);
 
@@ -88,4 +87,13 @@ Route::get('/students/{student}/ipk', [IPKController::class, 'show']);
 Route::middleware('auth')->group(function () {
     Route::resource('announcements', AnnouncementController::class);
 });
->>>>>>> 3913f27da523941bcf95dccb652febef0f99b1d3
+
+// route untuk login mahasiswa
+Route::get('/student/login', [StudentAuthController::class, 'showLoginForm'])->name('student.login.form');
+Route::post('/student/login', [StudentAuthController::class, 'login'])->name('student.login');
+Route::get('/student/credential', [StudentAuthController::class, 'showCredential'])->name('student.credential');
+Route::post('/student/credential', [StudentAuthController::class, 'checkCredential']);
+Route::post('/student/logout', [StudentAuthController::class, 'logout'])->name('student.logout');
+Route::get('/student/home', function () {
+    return view('student.student-home');
+})->middleware('auth:student')->name('student.home');
