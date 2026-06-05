@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Cek Kredensial')
+@section('title', 'Login Mahasiswa')
 
 @section('content')
 
 <div class="page-header">
-    <h1>Cek Kredensial Login</h1>
+    <h1>Login Mahasiswa</h1>
 </div>
 
 <div class="card">
