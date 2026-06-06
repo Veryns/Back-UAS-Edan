@@ -1,5 +1,9 @@
 <h1>Daftar SKPI</h1>
 
+<a href="{{ route('skpi.create') }}">
+    <button>Tambah SKPI</button>
+</a>
+
 <table border="1">
     <tr>
         <th>Nama Sertifikat</th>
@@ -8,7 +12,7 @@
         <th>Deskripsi</th>
         <th>Aksi</th>
     </tr>
-    @foreach($skpi as $item)
+    @foreach($skpis as $item)
     <tr>
         <td>{{ $item->nama_sertifikat }}</td>
         <td>{{ $item->organisasi }}</td>
@@ -18,7 +22,6 @@
             <a href="{{ route('skpi.show', $item->id) }}">
                 <button>Detail</button>
             </a>
-
             <form method="POST" action="{{ route('skpi.destroy', $item->id) }}">
                 @csrf
                 @method('DELETE')
@@ -28,14 +31,7 @@
     </tr>
     @endforeach
 </table>
-    <div>
-    <a href="{{ route('skpi.create') }}">
-        <button>Tambah SKPI</button>
-    </a>
-    </div>
 
-    <div>
-    <a href="{{ route('home') }}">
-        <button>Kembali</button>
-    </a>
-    </div>
+<a href="{{ route('student.home') }}">
+    <button>Kembali</button>
+</a>

@@ -2,13 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Student extends Model
+class Student extends Authenticatable
 {
-    protected $fillable = ['student_id', 'name', 'address', 'phone_number'];
-    public function paymentScheme(){
+    protected $primaryKey = 'student_id';
+    public $incrementing = false;
+
+    protected $fillable = [
+        'student_id', 'name', 'address', 'phone_number', 'email', 'password'
+    ];
+
+    protected $hidden = ['password'];
+
+    public function paymentScheme()
+    {
         return $this->hasOne(PaymentScheme::class);
     }
 }

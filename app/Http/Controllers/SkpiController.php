@@ -5,15 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Skpi;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Student;
+use Illuminate\Support\Facades\Auth;
 
 class SkpiController extends Controller
 {
     public function index()
     {
-        $student = auth()->user()->student;
-        $skpi = Skpi::where('student_id', $student->student_id)->get();
-        return view('skpi.index', compact('skpi'));
+        $studentId = Auth::guard('student')->user()->student_id;
+        $skpis = Skpi::where('student_id', $studentId)->get();
+        return view('skpi.index', compact('skpis'));
     }
 
     public function create()
@@ -23,8 +23,8 @@ class SkpiController extends Controller
 
     public function store(Request $request)
     {
-        $student = auth()->user()->student;
-        
+        $studentId = Auth::guard('student')->user()->student_id;
+
         $request->validate([
             'nama_sertifikat' => 'required|string|max:255',
             'organisasi'      => 'required|string|max:255',
@@ -39,7 +39,7 @@ class SkpiController extends Controller
         }
 
         Skpi::create([
-            'student_id' => $student->student_id,
+            'student_id'      => $studentId,
             'nama_sertifikat' => $request->nama_sertifikat,
             'organisasi'      => $request->organisasi,
             'tahun'           => $request->tahun,

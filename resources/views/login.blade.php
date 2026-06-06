@@ -4,7 +4,7 @@
     <title>Login</title>
 </head>
 <body>
-    <h2>Login</h2>
+    <h2>Login Admin</h2>
 
     @if ($errors->any())
         <div>
@@ -24,10 +24,8 @@
         <button type="submit">Login</button><br><br>
     </form>
 
-    <h2>Belum punya akun? Daftar sekarang</h2>
-
-    <a href="{{ route('register')}}">
-        <button>Daftar</button>
+    <a href="{{ route('welcome') }}">
+        <button type="button">Kembali</button>
     </a>
 
 </body>

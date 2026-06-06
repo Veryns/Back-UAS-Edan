@@ -1,8 +1,10 @@
 <h1>Daftar Mata Kuliah</h1>
 
+@if(Auth::guard('student')->guest())
 <a href="{{ route('matkul.create') }}">
     <button>Tambah Matkul</button>
 </a>
+@endif
 
 <table border="1">
     <tr>
@@ -12,7 +14,7 @@
         <th>Dosen</th>
         <th>Opsi</th>
     </tr>
-    @foreach($matkul as $matkul)
+    @foreach($matkuls as $matkul)
     <tr>
         <td>{{ $matkul->nama }}</td>
         <td>{{ $matkul->kodematkul }}</td>
@@ -22,6 +24,7 @@
             <a href="{{ route('matkul.show', $matkul->id) }}">
                 <button>Detail</button>
             </a>
+            @if(Auth::guard('student')->guest())
             <a href="{{ route('matkul.edit', $matkul->id) }}">
                 <button>Edit</button>
             </a>
@@ -30,11 +33,18 @@
                 @method('DELETE')
                 <button type="submit">Hapus</button>
             </form>
+            @endif
         </td>
     </tr>
     @endforeach
 </table>
 
-<a href="{{ route('home') }}">
-    <button>Kembali</button>
-</a>
+@if(Auth::guard('student')->check())
+    <a href="{{ route('student.home') }}">
+        <button>Kembali</button>
+    </a>
+@else
+    <a href="{{ route('home') }}">
+        <button>Kembali</button>
+    </a>
+@endif

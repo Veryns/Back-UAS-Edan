@@ -1,7 +1,9 @@
 <h1>Daftar Post</h1>
 
+@if(Auth::guard('student')->guest())
 <a href="{{ route('posts.create') }}">Buat Post Baru</a>
 <br><br>
+@endif
 
 @if ($posts->isEmpty())
     <p>Belum ada post yang tersimpan.</p>
@@ -11,7 +13,9 @@
             <tr>
                 <th style="width: 50px">No</th>
                 <th style="width: 300px">Judul</th>
+                @if(Auth::guard('student')->guest())
                 <th style="width: 120px">Aksi</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -23,6 +27,7 @@
                             {{ $post->title }}
                         </a>
                     </td>
+                    @if(Auth::guard('student')->guest())
                     <td style="text-align: center">
                         <a href="{{ route('posts.edit', $post) }}">Ubah</a>
                         <form action="{{ route('posts.destroy', $post) }}" method="post" style="display:inline;">
@@ -31,6 +36,7 @@
                             <button type="submit">Hapus</button>
                         </form>
                     </td>
+                    @endif
                 </tr>
             @endforeach
         </tbody>
