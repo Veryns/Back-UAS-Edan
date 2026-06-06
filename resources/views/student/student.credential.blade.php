@@ -41,7 +41,7 @@
 </div>
 
 <div style="margin-top:16px;">
-    <a href="{{ route('student.login') }}" class="btn btn-secondary">← Login</a>
+    <a href="{{ route('student.login') }}" class="btn btn-secondary">Login</a>
 </div>
 
 @endsection

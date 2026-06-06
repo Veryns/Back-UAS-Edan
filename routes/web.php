@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UangKuliahController;
@@ -11,10 +12,17 @@ use App\Http\Controllers\IPKController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\DispensationController;
 use App\Http\Controllers\StudentAuthController;
+use App\Http\Controllers\CommentController;
 
 Route::get('/', function () {
-    return redirect('/home');
-});
+    if (Auth::check()) {
+        return redirect()->route('home');
+    }
+    if (Auth::guard('student')->check()) {
+        return redirect()->route('student.home');
+    }
+    return view('welcome');
+})->name('welcome');
 
 use Illuminate\Support\Facades\DB;
 
@@ -26,7 +34,6 @@ Route::get('/vulnerable', function () {
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
-
 
 //route untuk students
 Route::resource('students', StudentController::class)->except(['store', 'update', 'destroy']);
@@ -43,7 +50,7 @@ Route::get('/uang-kuliah', [UangKuliahController::class, 'index']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // route buat home
-Route::get('/home', [AuthController::class, 'home'])->middleware('auth')->name('home');
+Route::get('/home', [AuthController::class, 'home'])->name('home')->middleware('auth');
 Route::middleware('auth')->group(function () {
 
     Route::get('/grades/{studentId}', [GradesController::class, 'getStudentGrades']);
@@ -77,9 +84,8 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.st
 Route::resource('skpi', SkpiController::class);
 
 //route w5
-use App\Http\Controllers\CommentController; 
- 
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+
 //route untuk IPK
 Route::get('/students/{student}/ipk', [IPKController::class, 'show']);
 
@@ -94,6 +100,10 @@ Route::post('/student/login', [StudentAuthController::class, 'login'])->name('st
 Route::get('/student/credential', [StudentAuthController::class, 'showCredential'])->name('student.credential');
 Route::post('/student/credential', [StudentAuthController::class, 'checkCredential']);
 Route::post('/student/logout', [StudentAuthController::class, 'logout'])->name('student.logout');
-Route::get('/student/home', function () {
-    return view('student.student-home');
-})->middleware('auth:student')->name('student.home');
+
+// route untuk student pages
+Route::middleware('auth.student')->group(function () {
+    Route::get('/student/home', [StudentAuthController::class, 'home'])->name('student.home');
+    Route::get('/student/grades', [GradesController::class, 'index'])->name('student.grades');
+    Route::get('/student/grades/{studentId}', [GradesController::class, 'getStudentGrades'])->name('student.grades.show');
+});

@@ -7,9 +7,11 @@
 <p>Dosen: {{ $matkul->dosen }}</p>
 <p>Kode MS Teams: {{ $matkul->kodemsteam }}</p>
 
+@if(Auth::guard('student')->guest())
 <a href="{{ route('matkul.edit', $matkul->id) }}">
     <button>Edit</button>
 </a>
+@endif
 
 <a href="{{ route('matkul.index') }}">
     <button>Kembali</button>

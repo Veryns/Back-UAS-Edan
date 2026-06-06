@@ -13,11 +13,12 @@ document.getElementById('studentSearch').addEventListener('submit', function(e) 
 });
 </script>
 
-
 <h1>Daftar Nilai</h1>
 
+@if(Auth::guard('student')->guest())
 <a href="{{ route('grades.create') }}">Tambah Nilai</a>
 <br><br>
+@endif
 
 @if ($grades->isEmpty())
     <p>Belum ada nilai yang tersimpan.</p>
@@ -30,7 +31,9 @@ document.getElementById('studentSearch').addEventListener('submit', function(e) 
                 <th>Student ID</th>
                 <th>Tipe</th>
                 <th>Nilai</th>
+                @if(Auth::guard('student')->guest())
                 <th>Aksi</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -45,6 +48,7 @@ document.getElementById('studentSearch').addEventListener('submit', function(e) 
                     <td>{{ $grade->student_id }}</td>
                     <td>{{ $grade->type }}</td>
                     <td>{{ $grade->score }}</td>
+                    @if(Auth::guard('student')->guest())
                     <td>
                         <form action="{{ route('grades.destroy', $grade->grade_id) }}" method="POST" style="display:inline;">
                             @csrf
@@ -52,6 +56,7 @@ document.getElementById('studentSearch').addEventListener('submit', function(e) 
                             <button type="submit">Hapus</button>
                         </form>
                     </td>
+                    @endif
                 </tr>
             @endforeach
         </tbody>

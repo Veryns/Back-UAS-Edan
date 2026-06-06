@@ -12,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable
+class Admins extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
@@ -33,4 +33,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Student::class);
     }
+}
+class Admin extends Authenticatable
+{
+    protected $table = 'users';
+
+    protected $fillable = ['name', 'email', 'password'];
+    protected $hidden = ['password', 'remember_token'];
 }

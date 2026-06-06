@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\StudentAuth;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,7 +10,7 @@ class StudentAuthController extends Controller
 {
     public function showLoginForm()
     {
-        return view('auth.student-login');
+        return view('student.login');
     }
 
     public function login(Request $request)
@@ -28,9 +28,14 @@ class StudentAuthController extends Controller
         return back()->withErrors(['email' => 'Email atau password salah.']);
     }
 
+    public function home()
+    {
+        return view('student.home');
+    }
+
     public function showCredential()
     {
-        return view('auth.student-credential');
+        return view('student.credential');
     }
 
     public function checkCredential(Request $request)
@@ -39,13 +44,13 @@ class StudentAuthController extends Controller
             'name' => 'required|string',
         ]);
 
-        $student = StudentAuth::where('name', $request->name)->first();
+        $student = Student::where('name', $request->name)->first();
 
         if (!$student) {
             return back()->withErrors(['name' => 'Nama tidak ditemukan.']);
         }
 
-        return view('auth.student-credential', [
+        return view('student.credential', [
             'student' => $student,
             'email'   => $student->email,
         ]);
@@ -56,6 +61,6 @@ class StudentAuthController extends Controller
         Auth::guard('student')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('student.login.form');
+        return redirect('/');
     }
 }
