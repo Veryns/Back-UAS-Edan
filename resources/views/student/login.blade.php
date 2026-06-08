@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- Reset & Base Styles --- */
         * {
             margin: 0;
             padding: 0;
@@ -22,18 +21,15 @@
             display: flex;
         }
 
-        /* --- SPLIT LAYOUT CONTAINER --- */
         .login-page-container {
             display: flex;
             width: 100%;
             min-height: 100vh;
         }
 
-        /* --- SISI KIRI: HERO IMAGE & ORNAMEN UNTAR (Inspirasi image_6824df & image_1339a9) --- */
         .hero-side {
             flex: 1.2;
             position: relative;
-            /* Memanggil foto gedung UNTAR yang kamu upload */
             background: url("{{ asset('bg-gedung.jpg') }}") no-repeat center center/cover;
             display: flex;
             align-items: center;
@@ -42,7 +38,6 @@
             overflow: hidden;
         }
 
-        /* Lapisan merah-biru gradasi elegan khas Untar di atas gambar */
         .hero-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -58,27 +53,10 @@
             max-width: 600px;
         }
 
-        /* Ornamen Teks Transparan Raksasa di Latar Belakang (Gaya UNIVET) */
-        .bg-ornamen-text {
-            position: absolute;
-            font-size: 8rem;
-            font-weight: 800;
-            color: rgba(255, 255, 255, 0.06);
-            letter-spacing: 4px;
-            line-height: 1;
-            text-transform: uppercase;
-            user-select: none;
-            pointer-events: none;
-            bottom: 10%;
-            left: -5%;
-            white-space: nowrap;
-            z-index: 2;
-        }
-
         .hero-tag {
             font-size: 0.9rem;
             font-weight: 700;
-            color: #ffcc00; /* Kuning Emas Untar */
+            color: #ffcc00;
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 10px;
@@ -102,7 +80,6 @@
             opacity: 0.9;
         }
 
-        /* --- SISI KANAN: FORM LOGIN (Bersih & Fokus) --- */
         .form-side {
             flex: 1;
             background-color: #ffffff;
@@ -118,7 +95,6 @@
             max-width: 380px;
         }
 
-        /* Logo Kampus Kecil di Atas Form */
         .brand-logo {
             display: flex;
             align-items: center;
@@ -159,7 +135,6 @@
             margin-top: 5px;
         }
 
-        /* --- INPUT STYLING --- */
         .form-group {
             margin-bottom: 20px;
         }
@@ -199,11 +174,10 @@
         }
 
         .input-wrapper input:focus {
-            border-color: #2b82c9; /* Fokus Biru LINTAR */
+            border-color: #2b82c9; 
             box-shadow: 0 0 0 3px rgba(43, 130, 201, 0.15);
         }
 
-        /* --- WARNING ERROR --- */
         .error-message {
             background-color: #fef2f2;
             border-left: 4px solid #ef4444;
@@ -218,10 +192,9 @@
             gap: 8px;
         }
 
-        /* --- BUTTON STYLING --- */
         .btn-submit {
             width: 100%;
-            background-color: #2b82c9; /* Biru Mahasiswa LINTAR */
+            background-color: #2b82c9;
             color: #ffffff;
             border: none;
             padding: 13px;
@@ -260,18 +233,6 @@
             color: #1e293b;
         }
 
-        /* --- FOOTER KECIL --- */
-        .form-footer {
-            margin-top: 40px;
-            text-align: center;
-            font-size: 0.75rem;
-            color: #94a3b8;
-        }
-
-        /* --- RESPONSIF DI HP --- */
-        @media (max-width: 992px) {
-            .hero-side { display: none; } /* Sembunyikan sisi gambar jika layar HP */
-        }
     </style>
 </head>
 <body>
@@ -282,7 +243,7 @@
             <div class="hero-overlay"></div>
             
             <div class="hero-content">
-                <p class="hero-tag"></i> LINTAR</p>
+                <p class="hero-tag">LINTAR</p>
                 <h2>Layanan Informasi Tarumanagara</h2>
                 <p>Silakan masuk menggunakan akun resmi Universitas Tarumanagara untuk mengakses Lintar.</p>
             </div>
@@ -333,9 +294,7 @@
                 </form>
 
                 <a href="{{ route('welcome') }}" style="text-decoration: none;">
-                    <button type="button" class="btn-back">
-                        </i> Kembali
-                    </button>
+                    <button type="button" class="btn-back">Kembali</button>
                 </a>
             </div>
         </div>

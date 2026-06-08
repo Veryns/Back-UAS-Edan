@@ -1,29 +1,29 @@
-<h1>Selamat datang, {{ Auth::guard('student')->user()->name }}</h1>
+<h1>{{ Auth::guard('student')->user()->name }}</h1>
 
 <br>
 
 <div>
-<a href="{{ route('matkul.index') }}">
-    <button>Mata Kuliah</button>
+    <a href="{{ route('matkul.index') }}">
+        <button>Mata Kuliah</button>
 </a>
 </div>
 
 <div>
-<a href="{{ route('student.grades') }}">
-    <button>Grades</button>
-</a>
+    <a href="{{ route('student.grades') }}">
+        <button>Grades</button>
+    </a>
 </div>
 
 <div>
-<a href="/uang-kuliah/menu">
-    <button>Uang Kuliah</button>
-</a>
+    <a href="/uang-kuliah/menu">
+        <button>Uang Kuliah</button>
+    </a>
 </div>
 
 <div>
-<a href="{{ route('skpi.index') }}">
-    <button>SKPI</button>
-</a>
+    <a href="{{ route('skpi.index') }}">
+        <button>SKPI</button>
+    </a>
 </div>
 
 <br><br>
