@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Mahasiswa - LINTAR UNTAR</title>
-    <!-- Font modern & Font Awesome Icon -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- Reset & Base Styles --- */
+
         * {
             margin: 0;
             padding: 0;
@@ -24,13 +23,12 @@
             min-height: 100vh;
         }
 
-        /* --- 1. SIDEBAR PANEL NAVIGASI FULL MERAH UNTAR PREMIUM --- */
         .sidebar {
             width: 275px;
             background: linear-gradient(180deg, #941b1b 0%, #6e1010 100%);
             color: #ffffff;
             display: flex;
-            flex-direction: column; /* Mengaktifkan susunan vertikal */
+            flex-direction: column; 
             position: fixed;
             top: 0;
             bottom: 0;
@@ -40,7 +38,6 @@
             border-right: 3px solid #ffcc00;
         }
 
-        /* Header Sidebar (Logo & Nama Portal) */
         .sidebar-header {
             padding: 30px 20px;
             background-color: rgba(0, 0, 0, 0.2);
@@ -71,14 +68,12 @@
             letter-spacing: 1px;
         }
 
-        /* Menu Navigasi Sisi Kiri */
         .sidebar-menu {
             list-style: none;
             padding: 24px 14px;
             display: flex;
             flex-direction: column;
             gap: 8px;
-            /* PENTING: Hilangkan flex: 1 dari sini agar tidak merusak dorongan bottom */
         }
 
         .sidebar-menu a {
@@ -102,14 +97,12 @@
             cursor: pointer;
         }
 
-        /* Efek Hover */
         .sidebar-menu a:hover .menu-item {
             color: #ffffff;
             background-color: rgba(255, 255, 255, 0.12);
             transform: translateX(6px);
         }
 
-        /* Menu Aktif */
         .sidebar-menu a:focus .menu-item,
         .sidebar-menu a.active .menu-item {
             color: #000000;
@@ -123,16 +116,14 @@
             color: #941b1b;
         }
 
-        /* --- CONTAINER UTAMA PENDORONG KE BAWAH --- */
         .sidebar-footer-container {
-            margin-top: auto; /* Trik Flexbox ajaib: Memaksa area ini melekat di dasar screen */
+            margin-top: auto; 
             padding: 16px;
             display: flex;
             flex-direction: column;
             gap: 14px;
         }
 
-        /* Ornamen Foto Kampus Terintegrasi */
         .sidebar-camp-card {
             position: relative;
             width: 100%;
@@ -187,7 +178,6 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
-        /* --- 2. WORKSPACE KONTEN UTAMA SEBELAH KANAN --- */
         .main-content {
             margin-left: 275px;
             flex: 1;
@@ -256,10 +246,8 @@
 </head>
 <body>
 
-    <!-- 1. SIDEBAR PANEL NAVIGASI MAHASISWA -->
     <div class="sidebar">
         
-        <!-- Header Identitas Aplikasi -->
         <div class="sidebar-header">
             <img src="{{ asset('logo.png') }}" alt="Logo UNTAR">
             <div class="sidebar-header-text">
@@ -296,21 +284,15 @@
             </a>
         </ul>
 
-        <!-- FOOTER BLOCK: Otomatis didorong ke paling bawah dasar screen -->
         <div class="sidebar-footer-container">
-            <!-- Tombol Logout asli Laravel Form -->
             <form method="POST" action="{{ route('student.logout') }}">
                 @csrf
-                <button type="submit" class="btn-logout">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
-                </button>
+                <button type="submit" class="btn-logout">Logout</button>
             </form>
         </div>
 
     </div>
 
-
-    <!-- 2. WORKSPACE AREA SEBELAH KANAN -->
     <div class="main-content">
         
         <div class="top-navbar">
