@@ -6,7 +6,7 @@
 
 <div class="page-header">
     <h1>Ubah Data Mahasiswa</h1>
-    <a href="{{ route('students.show', $student->student_id) }}" class="btn btn-secondary">← Kembali</a>
+    <a href="{{ route('students.show', $student->student_id) }}" class="btn btn-secondary">Kembali</a>
 </div>
 
 <div class="card">
