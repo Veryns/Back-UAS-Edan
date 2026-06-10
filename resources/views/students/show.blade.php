@@ -6,7 +6,7 @@
 
 <div class="page-header">
     <h1>Biodata Mahasiswa</h1>
-    <a href="{{ route('students.index') }}" class="btn btn-secondary">← Kembali</a>
+    <a href="{{ route('students.index') }}" class="btn btn-secondary">Kembali</a>
 </div>
 
 <div class="card">

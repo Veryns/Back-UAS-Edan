@@ -6,7 +6,7 @@
 
 <div class="page-header">
     <h1>Daftar Mahasiswa</h1>
-    <a href="{{ route('students.create') }}" class="btn btn-primary">+ Tambah Mahasiswa</a>
+    <a href="{{ route('students.create') }}" class="btn btn-primary">Tambah Mahasiswa</a>
 </div>
 
 @if (session('success'))
