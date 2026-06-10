@@ -44,8 +44,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/students/{studentId}', [StudentController::class, 'destroy'])->name('students.destroy');
 });
 
-Route::get('/uang-kuliah', [UangKuliahController::class, 'index']);
-
 // route untuk logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
