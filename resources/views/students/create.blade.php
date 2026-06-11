@@ -38,6 +38,16 @@
     </div>
 
     <div style="margin-bottom:14px;">
+        <label for="program_studi" style="display:block;margin-bottom:4px;font-weight:600;">Program Studi <span style="color:#d00;">*</span></label>
+        <select id="program_studi" name="program_studi" required style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;">
+            <option value="" disabled {{ old('program_studi') ? '' : 'selected' }}>Pilih Program Studi</option>
+            <option value="Sistem Informasi" {{ old('program_studi') == 'Sistem Informasi' ? 'selected' : '' }}>Sistem Informasi</option>
+            <option value="Teknik Informatika" {{ old('program_studi') == 'Teknik Informatika' ? 'selected' : '' }}>Teknik Informatika</option>
+        </select>
+        @error('program_studi')<div style="color:#d00;font-size:13px;margin-top:4px;">{{ $message }}</div>@enderror
+    </div>
+
+    <div style="margin-bottom:14px;">
         <label for="email" style="display:block;margin-bottom:4px;font-weight:600;">Email</label>
         <input type="email" id="email" name="email" value="{{ old('email') }}" required style="width:100%;padding:8px;border:1px solid #ccc;border-radius:4px;">
         @error('email')<div style="color:#d00;font-size:13px;margin-top:4px;">{{ $message }}</div>@enderror

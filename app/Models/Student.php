@@ -10,7 +10,7 @@ class Student extends Authenticatable
     public $incrementing = false;
 
     protected $fillable = [
-        'student_id', 'name', 'address', 'phone_number', 'email', 'password'
+        'student_id', 'name', 'address', 'phone_number', 'program_studi', 'email', 'password'
     ];
 
     protected $hidden = ['password'];

@@ -27,6 +27,7 @@
                 <th>No</th>
                 <th>NIM</th>
                 <th>Nama</th>
+                <th>Program Studi</th>
                 <th>Alamat</th>
                 <th>No. Telepon</th>
                 <th>Aksi</th>
@@ -38,6 +39,7 @@
                     <td>{{ $loop->iteration }}</td>
                     <td><a href="{{ route('students.show', $student->student_id) }}">{{ $student->student_id }}</a></td>
                     <td>{{ $student->name }}</td>
+                    <td>{{ $student->program_studi ?? '-' }}</td>
                     <td>{{ $student->address ?? '-' }}</td>
                     <td>{{ $student->phone_number ?? '-' }}</td>
                     <td>
