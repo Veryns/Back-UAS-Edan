@@ -9,37 +9,32 @@
     <a href="{{ route('students.index') }}" class="btn btn-secondary">Kembali</a>
 </div>
 
-<div class="card">
+<table border="1" cellpadding="10" cellspacing="0" style="border-collapse:collapse;max-width:500px;">
+    <tr>
+        <td><strong>NIM</strong></td>
+        <td>{{ $student->student_id }}</td>
+    </tr>
+    <tr>
+        <td><strong>Nama</strong></td>
+        <td>{{ $student->name }}</td>
+    </tr>
+    <tr>
+        <td><strong>Alamat</strong></td>
+        <td>{{ $student->address ?? '-' }}</td>
+    </tr>
+    <tr>
+        <td><strong>No. Telepon</strong></td>
+        <td>{{ $student->phone_number ?? '-' }}</td>
+    </tr>
+</table>
 
-    <table class="detail-table">
-        <tr>
-            <td>NIM</td>
-            <td>{{ $student->student_id }}</td>
-        </tr>
-        <tr>
-            <td>Nama</td>
-            <td>{{ $student->name }}</td>
-        </tr>
-        <tr>
-            <td>Alamat</td>
-            <td>{{ $student->address ?? '-' }}</td>
-        </tr>
-        <tr>
-            <td>No. Telepon</td>
-            <td>{{ $student->phone_number ?? '-' }}</td>
-        </tr>
-    </table>
-
-    <div class="form-actions" style="margin-top:28px; padding-top:20px; border-top:1px solid #f1f5f9;">
-        <a href="{{ route('students.edit', $student->student_id) }}" class="btn btn-primary">Ubah Data</a>
-        <form action="{{ route('students.destroy', $student->student_id) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger"
-                onclick="return confirm('Hapus mahasiswa ini?')">Hapus</button>
-        </form>
-    </div>
-
-</div>
+<p style="margin-top:18px;">
+    <a href="{{ route('students.edit', $student->student_id) }}" style="display:inline-block;padding:8px 14px;background:#000;color:#fff;text-decoration:none;border-radius:4px;">Ubah Data</a>
+    <form action="{{ route('students.destroy', $student->student_id) }}" method="POST" style="display:inline-block;margin-left:8px;">
+        @csrf
+        @method('DELETE')
+        <button type="submit" style="padding:8px 14px;background:#f44336;color:#fff;border:none;border-radius:4px;cursor:pointer;" onclick="return confirm('Hapus mahasiswa ini?')">Hapus</button>
+    </form>
+</p>
 
 @endsection
