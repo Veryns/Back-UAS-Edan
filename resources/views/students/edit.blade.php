@@ -17,7 +17,8 @@
 @endif
 
 <p><strong>Nama:</strong> {{ $student->name }}<br>
-<strong>NIM:</strong> {{ $student->student_id }}</p>
+<strong>NIM:</strong> {{ $student->student_id }}<br>
+<strong>Program Studi:</strong> {{ $student->program_studi ?? '-' }}</p>
 
 <form method="POST" action="{{ route('students.update', $student->student_id) }}" style="max-width:500px;">
     @csrf

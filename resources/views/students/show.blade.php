@@ -19,6 +19,10 @@
         <td>{{ $student->name }}</td>
     </tr>
     <tr>
+        <td><strong>Program Studi</strong></td>
+        <td>{{ $student->program_studi ?? '-' }}</td>
+    </tr>
+    <tr>
         <td><strong>Alamat</strong></td>
         <td>{{ $student->address ?? '-' }}</td>
     </tr>
