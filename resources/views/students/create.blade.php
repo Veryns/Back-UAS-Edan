@@ -4,10 +4,10 @@
 
 @section('content')
 
-<h1>Tambah Mahasiswa</h1>
-<p>
-    <a href="{{ route('students.index') }}" style="display:inline-block;padding:6px 12px;border:1px solid #999;background:#f1f1f1;color:#000;text-decoration:none;border-radius:4px;">← Kembali</a>
-</p>
+<div class="page-header">
+    <h1>Tambah Mahasiswa</h1>
+    <a href="{{ route('students.index') }}" class="btn btn-secondary">Kembali</a>
+</div>
 
 @if (session('success'))
     <p style="color:green;">{{ session('success') }}</p>
