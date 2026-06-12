@@ -331,7 +331,8 @@
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
                                         
-                                        <form method="POST" action="{{ route('matkul.destroy', $matkul->id) }}" class="inline-form" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data mata kuliah ini?')">
+                                        <form method="POST" action="{{ route('matkul.destroy', $matkul->id) }}" style="display:inline" 
+                                            onsubmit="return confirm('Apakah Anda yakin ingin menghapus data mata kuliah ini?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-delete" title="Hapus Data">
