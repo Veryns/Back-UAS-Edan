@@ -27,7 +27,8 @@
                 <button>Detail</button>
             </a>
 
-            <form method="POST" action="{{ route('skpi.destroy', $item->id) }}" style="display:inline">
+            <form method="POST" action="{{ route('skpi.destroy', $item->id) }}" style="display:inline"
+                onsubmit="return confirm('Yakin ingin menghapus sertifikat ini?')">
                 @csrf
                 @method('DELETE')
                 <button type="submit">Hapus</button>
