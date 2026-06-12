@@ -24,7 +24,8 @@ class StudentController extends Controller
         }
 
         $prefix = $prefixMap[$programStudi];
-        $start = $prefix * 1_000_000;
+        $year = (int) date('y');
+        $start = ($prefix * 100_000_000) + ($year * 1_000_000);
         $end = $start + 999_999;
 
         $last = Student::where('student_id', '>=', $start)
@@ -35,7 +36,7 @@ class StudentController extends Controller
         $next = $last ? $last + 1 : $start;
 
         if ($next > $end) {
-            throw new \RuntimeException('Maximum student_id reached for '.$programStudi.'.');
+            throw new \RuntimeException('Maximum student_id reached for '.$programStudi.' in '.$year.'.');
         }
 
         return $next;
@@ -109,7 +110,7 @@ class StudentController extends Controller
     }
 
     /**
-     * Show form to create a new student
+     * Show form bikin new student
      */
     public function create()
     {
@@ -117,7 +118,7 @@ class StudentController extends Controller
     }
 
     /**
-     * Show form to edit an existing student
+     * Show form tedit student
      */
     public function edit(Request $request, $studentId)
     {
@@ -173,17 +174,25 @@ class StudentController extends Controller
     /**
      *  DELETE /students/{studentId} pake auth
      */
-    public function destroy($studentId): JsonResponse
+    public function destroy(Request $request, $studentId)
     {
         $studentId = (int) $studentId;
         $student = Student::where('student_id', $studentId)->first();
  
         if (! $student) {
-            return response()->json(['message' => 'Student not found.'], 404);
+            if ($request->wantsJson()) {
+                return response()->json(['message' => 'Student not found.'], 404);
+            }
+
+            return redirect()->route('students.index')->with('error', 'Student not found.');
         }
  
         $student->delete();
  
-        return response()->json(['message' => 'Student deleted successfully.']);
+        if ($request->wantsJson()) {
+            return response()->json(['message' => 'Student deleted successfully.']);
+        }
+
+        return redirect()->route('students.index')->with('success', 'Student deleted successfully.');
     }
 }
