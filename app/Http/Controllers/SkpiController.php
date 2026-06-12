@@ -26,24 +26,13 @@ class SkpiController extends Controller
         $studentId = Auth::guard('student')->user()->student_id;
 
         $request->validate([
-            'nama_sertifikat' => 'required|string|max:255',
-            'organisasi'      => 'required|string|max:255',
-            'tahun'           => 'required|integer',
-            'deskripsi'       => 'nullable|string|max:500',
-            'file_sertifikat' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'file_sertifikat' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
         ]);
 
-        $filePath = null;
-        if ($request->hasFile('file_sertifikat')) {
-            $filePath = $request->file('file_sertifikat')->store('skpi', 'public');
-        }
+        $filePath = $request->file('file_sertifikat')->store('skpi', 'public');
 
         Skpi::create([
             'student_id'      => $studentId,
-            'nama_sertifikat' => $request->nama_sertifikat,
-            'organisasi'      => $request->organisasi,
-            'tahun'           => $request->tahun,
-            'deskripsi'       => $request->deskripsi,
             'file_sertifikat' => $filePath,
         ]);
 
@@ -67,26 +56,17 @@ class SkpiController extends Controller
     public function update(Request $request, int $id)
     {
         $request->validate([
-            'nama_sertifikat' => 'required|string|max:255',
-            'organisasi'      => 'required|string|max:255',
-            'tahun'           => 'required|integer',
-            'deskripsi'       => 'nullable|string|max:500',
-            'file_sertifikat' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'file_sertifikat' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
         ]);
 
         $skpi = Skpi::find($id);
         if (!$skpi) abort(404);
 
-        if ($request->hasFile('file_sertifikat')) {
-            if ($skpi->file_sertifikat) {
-                Storage::disk('public')->delete($skpi->file_sertifikat);
-            }
-            $skpi->file_sertifikat = $request->file('file_sertifikat')->store('skpi', 'public');
+        if ($skpi->file_sertifikat) {
+            Storage::disk('public')->delete($skpi->file_sertifikat);
         }
-
-        $skpi->update($request->only(
-            'nama_sertifikat', 'organisasi', 'tahun', 'deskripsi'
-        ));
+        $skpi->file_sertifikat = $request->file('file_sertifikat')->store('skpi', 'public');
+        $skpi->save();
 
         return redirect()->route('skpi.index');
     }

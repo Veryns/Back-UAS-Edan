@@ -6,23 +6,28 @@
 
 <table border="1">
     <tr>
-        <th>Nama Sertifikat</th>
-        <th>Organisasi</th>
-        <th>Tahun</th>
-        <th>Deskripsi</th>
+        <th>No</th>
+        <th>File Sertifikat</th>
         <th>Aksi</th>
     </tr>
-    @foreach($skpis as $item)
+    @foreach($skpis as $index => $item)
     <tr>
-        <td>{{ $item->nama_sertifikat }}</td>
-        <td>{{ $item->organisasi }}</td>
-        <td>{{ $item->tahun }}</td>
-        <td>{{ $item->deskripsi }}</td>
+        <td>{{ $index + 1 }}</td>
+        <td>
+            @if($item->file_sertifikat)
+                <a href="{{ asset('storage/' . $item->file_sertifikat) }}" target="_blank">
+                    Lihat File
+                </a>
+            @else
+                Tidak ada file
+            @endif
+        </td>
         <td>
             <a href="{{ route('skpi.show', $item->id) }}">
                 <button>Detail</button>
             </a>
-            <form method="POST" action="{{ route('skpi.destroy', $item->id) }}">
+
+            <form method="POST" action="{{ route('skpi.destroy', $item->id) }}" style="display:inline">
                 @csrf
                 @method('DELETE')
                 <button type="submit">Hapus</button>
