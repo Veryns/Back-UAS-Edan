@@ -1,9 +1,5 @@
 <h1>Detail SKPI</h1>
 
-<p>Nama Sertifikat: {{ $skpi->nama_sertifikat }}</p>
-<p>Organisasi: {{ $skpi->organisasi }}</p>
-<p>Tahun: {{ $skpi->tahun }}</p>
-<p>Deskripsi: {{ $skpi->deskripsi }}</p>
 <p>
     File:
     @if($skpi->file_sertifikat)
