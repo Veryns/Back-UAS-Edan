@@ -15,7 +15,7 @@
     </ul>
 @endif
 
-<form method="POST" action="{{ route('announcements.update', $announcement) }}">
+<form method="POST" action="{{ route('announcements.update', $announcement) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -24,6 +24,16 @@
 
     Konten:<br>
     <textarea name="content" rows="8" required style="width:400px">{{ old('content', $announcement->content) }}</textarea><br><br>
+
+    @if ($announcement->image_url)
+        <div>
+            <strong>Gambar Saat Ini:</strong><br>
+            <img src="{{ $announcement->image_url }}" alt="{{ $announcement->title }}" style="max-width:320px; height:auto; margin-bottom:1rem;">
+        </div>
+    @endif
+
+    Gambar (opsional):<br>
+    <input type="file" name="image" accept="image/*"><br><br>
 
     <button type="submit">Simpan</button>
     &nbsp;

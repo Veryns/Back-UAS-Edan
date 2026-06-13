@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Announcement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AnnouncementController extends Controller
 {
@@ -23,9 +24,16 @@ class AnnouncementController extends Controller
         $request->validate([
             'title'   => 'required|string|max:255',
             'content' => 'required|string',
+            'image'   => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:5120',
         ]);
 
-        Announcement::create($request->only('title', 'content'));
+        $data = $request->only('title', 'content');
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('announcements', 'public');
+        }
+
+        Announcement::create($data);
 
         return redirect()->route('announcements.index')
                          ->with('success', 'Pengumuman berhasil dibuat.');
@@ -46,9 +54,19 @@ class AnnouncementController extends Controller
         $request->validate([
             'title'   => 'required|string|max:255',
             'content' => 'required|string',
+            'image'   => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:5120',
         ]);
 
-        $announcement->update($request->only('title', 'content'));
+        $data = $request->only('title', 'content');
+
+        if ($request->hasFile('image')) {
+            if ($announcement->image) {
+                Storage::disk('public')->delete($announcement->image);
+            }
+            $data['image'] = $request->file('image')->store('announcements', 'public');
+        }
+
+        $announcement->update($data);
 
         return redirect()->route('announcements.index')
                          ->with('success', 'Pengumuman berhasil diperbarui.');
@@ -56,6 +74,10 @@ class AnnouncementController extends Controller
 
     public function destroy(Announcement $announcement)
     {
+        if ($announcement->image) {
+            Storage::disk('public')->delete($announcement->image);
+        }
+
         $announcement->delete();
 
         return redirect()->route('announcements.index')
