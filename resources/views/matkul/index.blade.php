@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- Reset & Base Styles --- */
         * {
             margin: 0;
             padding: 0;
@@ -16,7 +15,6 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
-        /* --- FIX: PEMANGGILAN LATAR BELAKANG FOTO KAMPUS --- */
         body {
             min-height: 100vh;
             padding: 60px 20px;
@@ -24,11 +22,10 @@
             justify-content: center;
             align-items: flex-start;
             position: relative;
-            background-color: #1e293b; /* Cadangan jika loading lambat */
+            background-color: #1e293b; 
             overflow-x: hidden;
         }
 
-        /* Mengarahkan ke file bg-gedung.jpg yang ada di folder public */
         body::before {
             content: '';
             position: fixed;
@@ -37,7 +34,6 @@
             z-index: -2;
         }
 
-        /* Lapisan hitam transparan tipis penahan kontras */
         body::after {
             content: '';
             position: fixed;
@@ -46,7 +42,6 @@
             z-index: -1;
         }
 
-        /* --- CONTAINER UTAMA KARTU PUTIH BERSIH --- */
         .table-container {
             width: 100%;
             max-width: 1140px;
@@ -59,18 +54,16 @@
             animation: fadeIn 0.4s ease-out;
         }
 
-        /* Top Header Section dengan Efek Pattern Tekstur Almamater */
         .table-header-section {
             background: linear-gradient(135deg, #941b1b 0%, #6e1010 100%);
             padding: 30px 35px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 4px solid #ffcc00; /* Garis Emas Pembatas Utama */
+            border-bottom: 4px solid #ffcc00;
             position: relative;
         }
 
-        /* Ornamen Garis Halus Dekoratif di Latar Belakang */
         .table-header-section::before {
             content: '';
             position: absolute;
@@ -91,19 +84,17 @@
 
         .table-title p {
             font-size: 0.85rem;
-            color: #ffcc00; /* Teks Subtitle Kuning Emas */
+            color: #ffcc00; 
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1.2px;
             margin-top: 4px;
         }
 
-        /* --- WRAPPER KONTEN UTAMA --- */
         .table-content-body {
             padding: 35px;
         }
 
-        /* --- STRUKTUR TABEL RESMI PORTAL LINTAR --- */
         .responsive-table-wrapper {
             width: 100%;
             overflow-x: auto;
@@ -120,7 +111,6 @@
             font-size: 0.9rem;
         }
 
-        /* Header Tabel Full Merah-Emas */
         th {
             background: linear-gradient(180deg, #801414 0%, #610b0b 100%);
             color: #ffcc00; /* Teks Judul Kolom Emas */
@@ -149,19 +139,17 @@
             border-right: none;
         }
 
-        /* Zebra Striping (Baris Belang-Belang) Khas Aplikasi Portal */
         tr:nth-child(even) td {
             background-color: #f8fafc;
         }
 
         tr:hover td {
-            background-color: #fffbeb !important; /* Sorotan warna cream muda saat baris ditunjuk */
+            background-color: #fffbeb !important; 
         }
 
-        /* Atribut Visual Data */
         .matkul-name {
             font-weight: 700;
-            color: #941b1b; /* Link nama matkul condong ke merah */
+            color: #941b1b; 
         }
 
         .matkul-code {
@@ -185,7 +173,6 @@
             font-weight: 700;
         }
 
-        /* --- TOMBOL AKSI PANEL (BUTTONS) --- */
         .btn {
             padding: 8px 14px;
             font-size: 0.8rem;
