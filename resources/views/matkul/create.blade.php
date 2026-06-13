@@ -253,9 +253,7 @@
                     
                     <a href="{{ route('matkul.index') }}" class="btn btn-back">Kembali</a>
 
-                    <button type="submit" class="btn btn-submit">
-                        <i class="fa-solid fa-floppy-disk"></i> Simpan
-                    </button>
+                    <button type="submit" class="btn btn-submit">Simpan</button>
 
                 </div>
             </form>
