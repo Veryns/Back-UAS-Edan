@@ -15,4 +15,9 @@ class Matkul extends Model
         'dosen',
         'kodemsteam',
     ];
+
+    public function grades()
+    {
+        return $this->hasMany(Grades::class);
+    }
 }
