@@ -49,6 +49,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // route buat home
 Route::get('/home', [AuthController::class, 'home'])->name('home')->middleware('auth');
+
 Route::middleware('auth')->group(function () {
 
     Route::get('/grades/{studentId}', [GradesController::class, 'getStudentGrades']);

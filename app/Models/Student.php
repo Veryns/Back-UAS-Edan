@@ -19,5 +19,10 @@ class Student extends Authenticatable
     {
         return $this->hasOne(PaymentScheme::class);
     }
+
+    public function grades()
+    {
+        return $this->hasMany(Grades::class, 'student_id', 'student_id');
+    }
 }
 

@@ -8,6 +8,11 @@
     <input type="number" name="student_id" required>
     <br><br>
 
+    Matkul ID:
+    <br>
+    <input type="number" name="matkul_id" required>
+    <br><br>
+
     Tipe Nilai:
     <br>
     <select name="type" required>
@@ -17,10 +22,12 @@
     </select>
     <br><br>
 
-    Score:
+    Nilai:
     <br>
-    <input type="number" name="score" min="0" max="100" required>
+    <input type="number" name="grade" min="0" max="100" required>
     <br><br>
 
-    <button type="submit">Simpan</button>
+    <button type="submit">
+        Simpan
+    </button>
 </form>
