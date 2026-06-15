@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LINTAR-SSO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>LINTAR-SSO - Universitas Tarumanagara</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         * {
@@ -15,20 +16,41 @@
         }
 
         body {
-            background-color: #ffffff;
-            color: #333333;
-            display: flex;
-            flex-direction: column;
             min-height: 100vh;
-        }
-
-        .hero-banner {
-            position: relative;
-            height: 380px;
             color: #ffffff;
             display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            padding: 0 10%;
+            position: relative;
+            padding: 40px 20px;
+            overflow-x: hidden;
+            background-color: #1e293b;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('{{ asset('bg-gedung.jpg') }}') no-repeat center center/cover;
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.6); 
+            z-index: -1;
+        }
+
+        .sso-container {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            animation: fadeIn 0.5s ease-out;
         }
 
         .banner-content {
@@ -36,44 +58,47 @@
             align-items: center;
             gap: 30px;
             width: 100%;
+            justify-content: center;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
             justify-content: center;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .title-container {
+            text-align: left;
         }
 
         .title-container h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .title-container h2 {
-            font-size: 1.5rem;
-            font-weight: 500;
+            font-size: 1.25rem;
+            font-weight: 600;
             letter-spacing: 0.5px;
-            line-height: 1.3;
-            opacity: 0.9;
-        }
-
-        .main-content {
-            flex: 1;
-            width: 100%;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
+            line-height: 1.4;
+            color: #ffcc00; 
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
         }
 
         .grid-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-            margin-top: -80px; 
-            position: relative;
-            z-index: 5;
+            gap: 30px;
+            width: 100%;
         }
 
         .grid-container a {
@@ -83,120 +108,115 @@
         .card-button {
             width: 100%;
             height: 220px;
-            padding: 30px 25px;
-            border: none;
+            padding: 35px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: #ffffff;
             text-align: left;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            justify-content: center;
             cursor: pointer;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            border-radius: 4px;
-            transition: transform 0.2s ease, filter 0.2s ease;
+            border-radius: 16px;
+            backdrop-filter: blur(12px); 
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
         }
 
+        .btn-mahasiswa { 
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.65) 0%, rgba(29, 78, 216, 0.45) 100%); 
+        }
+        
+        .btn-admin { 
+            background: linear-gradient(135deg, rgba(148, 27, 27, 0.65) 0%, rgba(185, 28, 28, 0.45) 100%); 
+        }
+
+        /* Efek saat Kartu Disorot (Hover) */
         .card-button:hover {
-            transform: translateY(-5px);
-            filter: brightness(1.1);
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
+        }
+
+        .btn-mahasiswa:hover {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.8) 0%, rgba(29, 78, 216, 0.6) 100%);
+        }
+
+        .btn-admin:hover {
+            background: linear-gradient(135deg, rgba(148, 27, 27, 0.8) 0%, rgba(185, 28, 28, 0.6) 100%);
+        }
+
+        .card-button:hover::after {
+            transform: scale(1.1) translate(-10px, -10px);
+            opacity: 0.18;
         }
 
         .card-button h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
+            font-size: 1.4rem;
+            font-weight: 800;
             margin-bottom: 15px;
             letter-spacing: 0.5px;
-            text-transform: uppercase;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 12px;
             width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .card-button p {
-            font-size: 0.85rem;
-            line-height: 1.6;
-            font-weight: 500;
-            text-transform: uppercase;
-            opacity: 0.9;
-        }
-
-        .btn-mahasiswa { background-color: #2b82c9; }
-        .btn-admin { background-color: #d91e18; }
-
-        .forgot-password {
-            margin-top: 40px;
-            margin-bottom: 40px;
-        }
-
-        .forgot-password a {
-            color: #666666;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-
-        .forgot-password a:hover {
-            text-decoration: underline;
-            color: #2b82c9;
-        }
-
-        .footer-line {
-            height: 1px;
-            background-color: #e2e8f0;
-            margin-bottom: 20px;
-        }
-
-        .footer-bottom {
             font-size: 0.8rem;
-            color: #888888;
-            padding-bottom: 30px;
+            line-height: 1.6;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+            text-transform: uppercase;
         }
 
-        @media (max-width: 768px) {
-            .grid-container { grid-template-columns: 1fr; margin-top: -40px; }
-            .hero-banner { height: 300px; padding: 0 5%; }
-            .banner-content { flex-direction: column; text-align: center; gap: 15px; }
-            .title-container h1 { font-size: 1.6rem; }
-            .title-container h2 { font-size: 1.1rem; }
-            .card-button { height: 180px; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
+
     </style>
 </head>
 <body>
 
-    <header class="hero-banner" style="background: linear-gradient(to right, rgba(168, 31, 31, 0.92), rgba(186, 39, 39, 0.85)), url('{{ asset('bg-gedung.jpg') }}') no-repeat center center/cover;">
-        <div class="banner-content">
-            
+    <div class="sso-container">
+        
+        <header class="banner-content">
             <div class="logo-container">
-                <img src="{{ asset('logo.png') }}" alt="Logo Kampus" style="height: 80px; width: auto;">
+                <img src="{{ asset('logo.png') }}" alt="Logo Kampus" style="height: 85px; width: auto;">
             </div>
             
             <div class="title-container">
                 <h1>SINGLE SIGN ON</h1>
-                <h2>LAYANAN INFORMASI TERPADU</h2>
+                <h2>LAYANAN INFORMASI TERPADU (LINTAR)</h2>
                 <h2>UNIVERSITAS TARUMANAGARA</h2>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <main class="main-content">
-        <div class="grid-container">
-            
-            <a href="{{ route('student.login') }}">
-                <button class="card-button btn-mahasiswa">
-                    <h3>Aplikasi Mahasiswa</h3>
-                    <p>KLIK DISINI UNTUK LOGIN SEBAGAI MAHASISWA AKTIF UNIVERSITAS</p>
-                </button>
-            </a>
+        <main class="main-content">
+            <div class="grid-container">
+                
+                <a href="{{ route('student.login') }}">
+                    <button class="card-button btn-mahasiswa">
+                        <h3><i class="fa-solid fa-graduation-cap"></i> Aplikasi Mahasiswa</h3>
+                        <p>Klik disini untuk login sebagai mahasiswa aktif universitas</p>
+                    </button>
+                </a>
 
-            <a href="{{ route('login') }}">
-                <button class="card-button btn-admin">
-                    <h3>Aplikasi Admin</h3>
-                    <p>KLIK DISINI UNTUK LOGIN SEBAGAI ADMINISTRATOR</p>
-                </button>
-            </a>
+                <a href="{{ route('login') }}">
+                    <button class="card-button btn-admin">
+                        <h3><i class="fa-solid fa-user-shield"></i> Aplikasi Admin</h3>
+                        <p>Klik disini untuk login sebagai administrator</p>
+                    </button>
+                </a>
 
-        </div>
-    </main>
+            </div>
+        </main>
+
+    </div>
 
 </body>
 </html>
