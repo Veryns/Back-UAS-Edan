@@ -223,7 +223,7 @@
                     </div>
 
                     <div class="input-group">
-                        <label><i class="fa-solid fa-barcode"></i> Kode Mata Kuliah</label>
+                        <label>Kode Mata Kuliah</label>
                         <input name="kodematkul" placeholder="Contoh: TI2025" required>
                     </div>
 

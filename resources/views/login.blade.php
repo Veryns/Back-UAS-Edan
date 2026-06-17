@@ -288,7 +288,7 @@
                         <label for="email">Email</label>
                         <div class="input-wrapper">
                             <i class="fa-solid fa-envelope"></i>
-                            <input type="email" id="email" name="email" placeholder="@untar.ac.id" required>
+                            <input type="email" id="email" name="email" placeholder="" required>
                         </div>
                     </div>
                     
