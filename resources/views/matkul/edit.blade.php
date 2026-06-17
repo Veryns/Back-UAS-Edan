@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Mata Kuliah - LINTAR UNTAR</title>
-    <!-- Font modern & Font Awesome Icon -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- Reset & Base Styles --- */
         * {
             margin: 0;
             padding: 0;
@@ -17,7 +15,6 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
-        /* --- BACKGROUND FULL FOTO UNTAR TRANSPARAN --- */
         body {
             min-height: 100vh;
             padding: 50px 20px;
@@ -45,7 +42,6 @@
             z-index: -1;
         }
 
-        /* --- KARTU PUTIH BERSIH --- */
         .form-container {
             width: 100%;
             max-width: 650px;
@@ -57,11 +53,10 @@
             animation: slideUp 0.4s ease-out;
         }
 
-        /* Header di dalam Kartu (Tema Merah) */
         .form-header {
             background: linear-gradient(135deg, #991b1b 0%, #b91c1c 100%);
             padding: 25px 35px;
-            border-bottom: 4px solid #ffcc00; /* Garis Emas Untar */
+            border-bottom: 4px solid #ffcc00;
             display: flex;
             align-items: center;
             gap: 15px;
@@ -85,12 +80,10 @@
             margin-top: 2px;
         }
 
-        /* Area Isi Form */
         .form-body {
             padding: 35px;
         }
 
-        /* Susunan Layout Form Dua Kolom (Untuk Kode & SKS) */
         .form-row {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -115,7 +108,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Elemen Input, Textarea, dan Form Control */
         input, textarea {
             width: 100%;
             padding: 12px 16px;
@@ -140,7 +132,6 @@
             min-height: 100px;
         }
 
-        /* --- AREA TOMBOL AKSI --- */
         .form-footer-actions {
             margin-top: 25px;
             padding-top: 25px;
@@ -166,7 +157,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* Tombol Kembali (Biasa) */
+        /* Tombol Kembali */
         .btn-back {
             background-color: #ffffff;
             color: #64748b;
@@ -178,7 +169,6 @@
             color: #334155;
         }
 
-        /* Tombol Perbarui (Merah) */
         .btn-submit {
             background-color: #b91c1c;
             color: #ffffff;
@@ -191,26 +181,13 @@
             transform: translateY(-1px);
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
 
-        /* Responsive View HP */
-        @media (max-width: 640px) {
-            body { padding: 20px 10px; }
-            .form-body { padding: 25px 20px; }
-            .form-row { grid-template-columns: 1fr; gap: 0; }
-            .form-footer-actions { flex-direction: column-reverse; }
-            .btn { width: 100%; justify-content: center; }
-        }
     </style>
 </head>
 <body>
 
     <div class="form-container">
         
-        <!-- Header Atas Kartu Form -->
         <div class="form-header">
             <i class="fa-solid fa-pen-to-square"></i>
             <div>
@@ -261,7 +238,7 @@
                 <!-- Kode Microsoft Teams -->
                 <div class="input-group" style="margin-bottom: 5px;">
                     <label><i class="fa-brands fa-microsoft"></i> Kode MS Teams (Opsional)</label>
-                    <input name="kodemsteam" value="{{ $matkul->kodemsteam }}" placeholder="Contoh: abc123f">
+                    <input name="kodemsteam" value="{{ $matkul->kodemsteam }}" placeholder="Contoh: TI2025">
                 </div>
 
                 <div class="form-footer-actions">
