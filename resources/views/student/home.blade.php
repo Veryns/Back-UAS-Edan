@@ -242,6 +242,71 @@
             font-size: 0.95rem;
             line-height: 1.7;
         }
+
+        .announcement-section {
+            margin-top: 30px;
+        }
+
+        .announcement-section h2 {
+            margin-bottom: 18px;
+            font-size: 1.4rem;
+            color: #111827;
+        }
+
+        .announcement-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .announcement-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+
+        .announcement-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 35px rgba(15, 23, 42, 0.08);
+        }
+
+        .announcement-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .announcement-content {
+            padding: 24px;
+        }
+
+        .announcement-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #0f172a;
+        }
+
+        .announcement-meta {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 14px;
+        }
+
+        .announcement-text {
+            color: #334155;
+            line-height: 1.75;
+            margin-bottom: 18px;
+        }
+
+        .announcement-link {
+            color: #941b1b;
+            font-weight: 700;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -305,7 +370,29 @@
         <div class="content-body">
             <div class="welcome-card">
                 <h1>Halo, {{ Auth::guard('student')->user()->name }}!</h1>
-                <p></p>
+            </div>
+
+            <div class="announcement-section">
+                <h2>Announcements</h2>
+                @if($announcements->isEmpty())
+                    <p>No Announcements</p>
+                @else
+                    <div class="announcement-grid">
+                        @foreach($announcements as $announcement)
+                            <div class="announcement-card" onclick="window.location='{{ route('student.announcements.show', $announcement) }}'">
+                                @if($announcement->image_url)
+                                    <img src="{{ $announcement->image_url }}" alt="{{ $announcement->title }}">
+                                @endif
+                                <div class="announcement-content">
+                                    <div class="announcement-title">{{ $announcement->title }}</div>
+                                    <div class="announcement-meta">{{ $announcement->created_at->format('d M Y') }}</div>
+                                    <div class="announcement-text">{{ Str::limit($announcement->content, 150) }}</div>
+                                    <span class="announcement-link">Baca Selengkapnya →</span>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
             </div>
         </div>
 
