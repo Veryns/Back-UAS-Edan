@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcement;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,13 @@ class StudentAuthController extends Controller
 
     public function home()
     {
-        return view('student.home');
+        $announcements = Announcement::latest()->get();
+        return view('student.home', compact('announcements'));
+    }
+
+    public function announcementShow(Announcement $announcement)
+    {
+        return view('student.announcements.show', compact('announcement'));
     }
 
     public function showCredential()
