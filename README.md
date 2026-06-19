@@ -1,60 +1,89 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Back-UAS-Edan
+Project UAS Back End Programming
+Kelompok LINTAR
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Back-UAS-Edan adalah backend berbasis Laravel untuk portal informasi mahasiswa (LINTAR UNTAR). Aplikasi ini menyediakan Authentication untuk admin/staff dan Authentication terpisah untuk mahasiswa, serta fitur dashboard mahasiswa, management pengumuman, nilai (grades), management mata kuliah (matkul), SKPI, dan endpoint terkait pembayaran kuliah.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Authentication
+-
+- Authentication admin/staff menggunakan middleware `auth` (web guard).
+- Authentication mahasiswa menggunakan guard terpisah dan middleware `auth.student`.
 
-## Learning Laravel
+Daftar Endpoint
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Umum / Auth
+- GET  /                 - Halaman welcome (akan redirect jika sudah login)
+- GET  /vulnerable        - (debug) query DB mentah (tidak aman; hanya untuk pengembangan)
+- GET  /login             - Form login admin
+- POST /login             - Proses login admin
+- POST /logout            - Logout admin [Auth Required]
+- GET  /register          - Form registrasi
+- POST /register         - Daftarkan user baru
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+Mahasiswa (Students)
+- Resource `students` (beberapa aksi butuh auth):
+	- GET    /students               - Daftar mahasiswa
+	- GET    /students/create        - Form buat mahasiswa
+	- GET    /students/{student}     - Detail mahasiswa
+	- GET    /students/{student}/edit - Form edit
+	- POST   /students               - Buat mahasiswa [Auth Required]
+	- PUT    /students/{studentId}   - Update mahasiswa [Auth Required]
+	- DELETE /students/{studentId}   - Hapus mahasiswa [Auth Required]
 
-## Agentic Development
+Grades (Nilai)
+- GET  /grades/{studentId}                - Ambil nilai untuk student tertentu (auth)
+- Resource `/home/grades` (controller `GradesController`) - resource standar di bawah auth
+- GET  /student/grades                    - Daftar nilai untuk mahasiswa (auth.student)
+- GET  /student/grades/{studentId}        - Nilai spesifik mahasiswa (auth.student)
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Mata Kuliah (Matkul)
+- Resource `matkul` (controller `MatkulController`) - CRUD untuk mata kuliah
 
-```bash
-composer require laravel/boost --dev
+SKPI
+- Resource `skpi` - Endpoint CRUD terkait SKPI
 
-php artisan boost:install
-```
+Uang Kuliah / Tuition
+- GET  /uang-kuliah/               - Halaman utama uang kuliah
+- GET  /uang-kuliah/menu           - Menu uang kuliah
+- GET  /uang-kuliah/payment-scheme - Tampilkan skema pembayaran
+- POST /uang-kuliah/payment-scheme - Simpan skema pembayaran
+- GET  /uang-kuliah/dispensasi     - Form dispensasi
+- POST /uang-kuliah/dispensasi    - Simpan permintaan dispensasi
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Komentar
+- POST /comments - Kirim komentar
 
-## Contributing
+IPK
+- GET /students/{student}/ipk - Tampilkan IPK mahasiswa
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Pengumuman (Announcements)
+- Resource `announcements` (controller `AnnouncementController`) - dilindungi middleware `auth` (admin/staff):
+	- GET    /announcements            - Daftar pengumuman (tampilan admin)
+	- GET    /announcements/create     - Form buat pengumuman
+	- POST   /announcements            - Simpan pengumuman baru
+	- GET    /announcements/{announcement} - Lihat pengumuman
+	- GET    /announcements/{announcement}/edit - Form edit
+	- PUT    /announcements/{announcement} - Update pengumuman
+	- DELETE /announcements/{announcement} - Hapus pengumuman
 
-## Code of Conduct
+Student Only view
+- GET /student/login                   - Form login mahasiswa
+- POST /student/login                  - Proses login mahasiswa
+- POST /student/logout                 - Logout mahasiswa
+- GET  /student/home                   - Dashboard mahasiswa (juga menampilkan Announcements)
+- GET  /student/announcements          - Daftar pengumuman untuk mahasiswa (read-only)
+- GET  /student/announcements/{announcement} - Detail pengumuman (read-only)
+- GET  /student/credential             - Form pengecekan kredensial mahasiswa
+- POST /student/credential             - Periksa kredensial mahasiswa
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Notes
+- Resource `announcements` untuk admin memungkinkan aksi create/update/delete dan dilindungi oleh middleware `auth`.
+- Halaman pengumuman mahasiswa bersifat read-only dan menggunakan middleware `auth.student`.
+- Beberapa route (mis. `/vulnerable`) ada untuk keperluan pengembangan/testing dan sebaiknya dihapus atau diamankan di produksi.
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
-## Test
