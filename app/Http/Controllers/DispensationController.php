@@ -4,39 +4,47 @@ namespace App\Http\Controllers;
 
 use App\Models\Bill;
 use App\Models\Dispensation;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 class DispensationController extends Controller
 {
-    public function index(){
-        $bills = Bill::where('student_id',auth()->id())->where('status','Belum Lunas')->get();
-        $dispensations = Dispensation::where('student_id',auth()->id())->latest()->get();
+    public function index(Request $request){
+        $student = Student::where('student_id',$request->student_id)->firstOrFail();
+        $bills = Bill::where('student_id',$student->id)->where('status','Belum Lunas')->get();
+        $dispensations = Dispensation::where('student_id',$student->id)->whereHas('bill')->latest()->get();
 
-        return view('uangkuliah.dispensasi',compact('bills', 'dispensations'));
+        return view('uangkuliah.dispensasi',compact('student','bills','dispensations'));
     }
 
     public function store(Request $request){
+        $request->validate([
+            'bill_id' => 'required|exists:bills,id',
+            'extension_days' => 'required|integer|min:1',
+            'reason' => 'required|string',
+            'student_id' => 'required'
+        ]);
+
+        $student = Student::where('student_id',$request->student_id)->firstOrFail();
+
         Dispensation::create([
-            'student_id' => auth()->id(),
+            'student_id' => $student->id,
             'bill_id' => $request->bill_id,
             'reason' => $request->reason,
-            'requested_days' => $request->requested_days,
+            'extension_days' => $request->extension_days,
             'status' => 'Pending'
         ]);
+
         return back();
     }
 
-    public function adminIndex(){
-        $dispensations = Dispensation::with('bill')->get();
-        return view('admin.dispensasi',compact('dispensations'));
-    }
-
-    public function approve(Request $request, $id){
+    public function approve($id){
         $dispensation = Dispensation::findOrFail($id);
-        $dispensation->update(['status' => 'Approved','extension_days' =>$request->extension_days]);
+        $dispensation->update(['status' => 'Approved']);
+
         $bill = $dispensation->bill;
-        $bill->deadline =Carbon::parse($bill->deadline)->addDays($request->extension_days);
+        $bill->deadline =Carbon::parse($bill->deadline)->addDays($dispensation->extension_days);
         $bill->save();
 
         return back();

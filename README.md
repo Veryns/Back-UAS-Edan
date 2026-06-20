@@ -24,7 +24,7 @@ Umum / Auth
 - GET  /register          - Form registrasi
 - POST /register         - Daftarkan user baru
 
-## [Mahasiswa (Students)](STUDENTS_ENDPOINT.md)
+## [Mahasiswa (Students)](Students.md)
 - Resource `students` (beberapa aksi butuh auth):
 	- GET    /students               - Daftar mahasiswa
 	- GET    /students/create        - Form buat mahasiswa
