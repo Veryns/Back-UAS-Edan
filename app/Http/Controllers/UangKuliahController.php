@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bill;
+use App\Models\Dispensation;
 use App\Models\PaymentScheme;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -36,7 +37,9 @@ class UangKuliahController extends Controller
             ['student_id' => $student->id],
             ['scheme_type' => $request->scheme]
         );
-
+        
+        $billIds = Bill::where('student_id', $student->id)->pluck('id');
+        Dispensation::whereIn('bill_id', $billIds)->delete();
         Bill::where('student_id', $student->id)->where('status', 'Belum Lunas')->delete();
 
         $bppBase = 9000000;
@@ -44,7 +47,7 @@ class UangKuliahController extends Controller
 
         if ($request->scheme == 'FULL') {
             $this->createNewBill($student->id, 'BPP - Full Payment', $bppBase, 30);
-            $this->createNewBill($student->id, 'SKS - Full Payment', $sksBase, 60);
+            $this->createNewBill($student->id, 'SKS - Full Payment', $sksBase, 90);
         }
 
         if ($request->scheme == 'INSTALLMENT') {

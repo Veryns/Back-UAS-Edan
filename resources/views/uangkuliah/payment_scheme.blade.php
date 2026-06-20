@@ -43,3 +43,7 @@
         Simpan Perubahan
     </button>
 </form>
+
+<a href="/uang-kuliah/menu?student_id={{ $student->student_id }}">
+    <button>Kembali ke Menu Uang Kuliah</button>
+</a>
