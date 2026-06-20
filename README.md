@@ -15,7 +15,7 @@ Authentication
 Daftar Endpoint
 
 
-Umum / Auth
+## Umum / Auth
 - GET  /                 - Halaman welcome (akan redirect jika sudah login)
 - GET  /vulnerable        - (debug) query DB mentah (tidak aman; hanya untuk pengembangan)
 - GET  /login             - Form login admin
@@ -34,33 +34,35 @@ Umum / Auth
 	- PUT    /students/{studentId}   - Update mahasiswa [Auth Required]
 	- DELETE /students/{studentId}   - Hapus mahasiswa [Auth Required]
 
-Grades (Nilai)
+## Grades (Nilai)
 - GET  /grades/{studentId}                - Ambil nilai untuk student tertentu (auth)
 - Resource `/home/grades` (controller `GradesController`) - resource standar di bawah auth
 - GET  /student/grades                    - Daftar nilai untuk mahasiswa (auth.student)
 - GET  /student/grades/{studentId}        - Nilai spesifik mahasiswa (auth.student)
 
-Mata Kuliah (Matkul)
+## Mata Kuliah (Matkul)
 - Resource `matkul` (controller `MatkulController`) - CRUD untuk mata kuliah
 
-SKPI
+## SKPI
 - Resource `skpi` - Endpoint CRUD terkait SKPI
 
-Uang Kuliah / Tuition
-- GET  /uang-kuliah/               - Halaman utama uang kuliah
-- GET  /uang-kuliah/menu           - Menu uang kuliah
-- GET  /uang-kuliah/payment-scheme - Tampilkan skema pembayaran
-- POST /uang-kuliah/payment-scheme - Simpan skema pembayaran
-- GET  /uang-kuliah/dispensasi     - Form dispensasi
-- POST /uang-kuliah/dispensasi    - Simpan permintaan dispensasi
+## Uang Kuliah
+- GET  /uang-kuliah/                        - Daftar tagihan dan pembayaran mahasiswa
+- GET  /uang-kuliah/menu                    - Menu uang kuliah
+- GET  /uang-kuliah/payment-scheme          - Tampilkan pilihan skema pembayaran
+- POST /uang-kuliah/payment-scheme          - Simpan skema pembayaran
+- GET  /uang-kuliah/dispensasi              - Form pengajuan dispensasi pembayaran
+- POST /uang-kuliah/dispensasi              - Simpan pengajuan dispensasi
+- POST /uang-kuliah/dispensasi/{id}/approve - Setujui pengajuan dispensasi
+- POST /uang-kuliah/dispensasi/{id}/reject  - Tolak pengajuan dispensasi
 
-Komentar
+## Komentar
 - POST /comments - Kirim komentar
 
-IPK
+## IPK
 - GET /students/{student}/ipk - Tampilkan IPK mahasiswa
 
-Pengumuman (Announcements)
+## Pengumuman (Announcements)
 - Resource `announcements` (controller `AnnouncementController`) - dilindungi middleware `auth` (admin/staff):
 	- GET    /announcements            - Daftar pengumuman (tampilan admin)
 	- GET    /announcements/create     - Form buat pengumuman
@@ -70,7 +72,7 @@ Pengumuman (Announcements)
 	- PUT    /announcements/{announcement} - Update pengumuman
 	- DELETE /announcements/{announcement} - Hapus pengumuman
 
-Student Only view
+## Student Only view
 - GET /student/login                   - Form login mahasiswa
 - POST /student/login                  - Proses login mahasiswa
 - POST /student/logout                 - Logout mahasiswa
@@ -80,7 +82,7 @@ Student Only view
 - GET  /student/credential             - Form pengecekan kredensial mahasiswa
 - POST /student/credential             - Periksa kredensial mahasiswa
 
-Notes
+## Notes
 - Resource `announcements` untuk admin memungkinkan aksi create/update/delete dan dilindungi oleh middleware `auth`.
 - Halaman pengumuman mahasiswa bersifat read-only dan menggunakan middleware `auth.student`.
 - Beberapa route (mis. `/vulnerable`) ada untuk keperluan pengembangan/testing dan sebaiknya dihapus atau diamankan di produksi.
