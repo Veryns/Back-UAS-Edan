@@ -63,6 +63,8 @@ Route::prefix('uang-kuliah')->group(function () {
     Route::post('/payment-scheme', [UangKuliahController::class, 'saveScheme']);
     Route::get('/dispensasi', [DispensationController::class, 'index']);
     Route::post('/dispensasi', [DispensationController::class, 'store']);
+    Route::post('/dispensasi/{id}/approve', [DispensationController::class, 'approve']);
+    Route::post('/dispensasi/{id}/reject', [DispensationController::class, 'reject']);
 });
 
 // route untuk matkul ga tau kenapa setelah say mencoba untuk memperbaiki error solusi nya adalah dengan menonaktifkan route ini

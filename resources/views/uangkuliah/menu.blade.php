@@ -40,5 +40,9 @@
         </a>
     @endif
 
+<a href="{{ route('home') }}">
+    <button>Kembali ke Home</button>
+</a>
+
 </body>
 </html>
