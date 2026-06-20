@@ -55,7 +55,7 @@
         }
 
         .table-header {
-            background: linear-gradient(135deg, #c50000 0%, #b60000 100%);
+            background: linear-gradient(135deg, #800f13 0%, #b60000 100%);
             padding: 25px 35px;
             border-bottom: 4px solid #ffcc00; 
             display: flex;
