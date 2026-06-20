@@ -12,15 +12,33 @@ class StudentController extends Controller
     /* Helper
     function buat bikin unique id 9 digit
     */ 
-    private function generateStudentId(): int
+    private function generateStudentId(string $programStudi): int
     {
-        $last = Student::orderByDesc('student_id')->value('student_id');
-        $next = $last ? $last + 1 : 100_000_000;
- 
-        if ($next > 999_999_999) {
-            throw new \RuntimeException('Maximum student_id reached.');
+        $prefixMap = [
+            'Sistem Informasi' => 825,
+            'Teknik Informatika' => 535,
+        ];
+
+        if (! isset($prefixMap[$programStudi])) {
+            throw new \InvalidArgumentException('Invalid program studi selection.');
         }
- 
+
+        $prefix = $prefixMap[$programStudi];
+        $year = (int) date('y');
+        $start = ($prefix * 100_000_000) + ($year * 1_000_000);
+        $end = $start + 999_999;
+
+        $last = Student::where('student_id', '>=', $start)
+            ->where('student_id', '<=', $end)
+            ->orderByDesc('student_id')
+            ->value('student_id');
+
+        $next = $last ? $last + 1 : $start;
+
+        if ($next > $end) {
+            throw new \RuntimeException('Maximum student_id reached for '.$programStudi.' in '.$year.'.');
+        }
+
         return $next;
     }
     /**
@@ -46,17 +64,19 @@ class StudentController extends Controller
             'name'         => 'required|string|max:255',
             'address'      => 'nullable|string|max:500',
             'phone_number' => 'nullable|string|max:20',
+            'program_studi'=> 'required|string|in:Sistem Informasi,Teknik Informatika',
             'email'        => 'required|email|unique:students,email',
             'password'     => 'required|string|min:6',
         ]);
 
         $student = Student::create([
-            'student_id'   => $this->generateStudentId(),
-            'name'         => $request->name,
-            'address'      => $request->address,
-            'phone_number' => $request->phone_number,
-            'email'        => $request->email,
-            'password'     => Hash::make($request->password),
+            'student_id'    => $this->generateStudentId($request->program_studi),
+            'name'          => $request->name,
+            'address'       => $request->address,
+            'phone_number'  => $request->phone_number,
+            'program_studi' => $request->program_studi,
+            'email'         => $request->email,
+            'password'      => Hash::make($request->password),
         ]);
 
         if ($request->wantsJson()) {
@@ -90,7 +110,7 @@ class StudentController extends Controller
     }
 
     /**
-     * Show form to create a new student
+     * Show form bikin new student
      */
     public function create()
     {
@@ -98,7 +118,7 @@ class StudentController extends Controller
     }
 
     /**
-     * Show form to edit an existing student
+     * Show form tedit student
      */
     public function edit(Request $request, $studentId)
     {
@@ -154,17 +174,25 @@ class StudentController extends Controller
     /**
      *  DELETE /students/{studentId} pake auth
      */
-    public function destroy($studentId): JsonResponse
+    public function destroy(Request $request, $studentId)
     {
         $studentId = (int) $studentId;
         $student = Student::where('student_id', $studentId)->first();
  
         if (! $student) {
-            return response()->json(['message' => 'Student not found.'], 404);
+            if ($request->wantsJson()) {
+                return response()->json(['message' => 'Student not found.'], 404);
+            }
+
+            return redirect()->route('students.index')->with('error', 'Student not found.');
         }
  
         $student->delete();
  
-        return response()->json(['message' => 'Student deleted successfully.']);
+        if ($request->wantsJson()) {
+            return response()->json(['message' => 'Student deleted successfully.']);
+        }
+
+        return redirect()->route('students.index')->with('success', 'Student deleted successfully.');
     }
 }

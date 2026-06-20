@@ -1,8 +1,38 @@
 <h1>Detail Nilai</h1>
 
-<p><strong>Grade ID:</strong> {{ $grade->grade_id }}</p>
-<p><strong>Student ID:</strong> {{ $grade->student_id }}</p>
-<p><strong>Tipe:</strong> {{ $grade->type }}</p>
-<p><strong>Nilai:</strong> {{ $grade->score }}</p>
+<p>
+    <strong>ID:</strong>
+    {{ $grade->id }}
+</p>
 
-<a href="{{ route('grades.index') }}">Kembali</a>
+<p>
+    <strong>Student ID:</strong>
+    {{ $grade->student_id }}
+</p>
+
+<p>
+    <strong>Matkul ID:</strong>
+    {{ $grade->matkul_id }}
+</p>
+
+<p>
+    <strong>Tipe:</strong>
+    {{ $grade->type }}
+</p>
+
+<p>
+    <strong>Nilai:</strong>
+    {{ $grade->grade }}
+</p>
+
+<br>
+
+<a href="{{ route('grades.edit', $grade->id) }}">
+    Edit
+</a>
+
+<br><br>
+
+<a href="{{ route('grades.index') }}">
+    Kembali
+</a>

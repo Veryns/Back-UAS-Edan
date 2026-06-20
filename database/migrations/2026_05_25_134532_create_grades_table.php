@@ -6,19 +6,33 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('grades', function (Blueprint $table) {
-            $table->id(); // primary key auto increment
-            $table->unsignedBigInteger('grade_id')->unique();
+            $table->id();
+
             $table->unsignedBigInteger('student_id');
-            $table->enum('type', ['UTS', 'UAS', 'TUGAS']);
-            $table->integer('score');
+
+            $table->foreign('student_id')
+                ->references('student_id')
+                ->on('students')
+                ->cascadeOnDelete();
+
+            $table->foreignId('matkul_id')
+                ->constrained('matkul')
+                ->cascadeOnDelete();
+
+            $table->enum('type', [
+                'UTS',
+                'UAS',
+                'TUGAS'
+            ]);
+
+            $table->double('grade');
+
             $table->timestamps();
         });
+
     }
 
     public function down(): void

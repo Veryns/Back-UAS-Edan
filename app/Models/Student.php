@@ -10,7 +10,7 @@ class Student extends Authenticatable
     public $incrementing = false;
 
     protected $fillable = [
-        'student_id', 'name', 'address', 'phone_number', 'email', 'password'
+        'student_id', 'name', 'address', 'phone_number', 'program_studi', 'email', 'password'
     ];
 
     protected $hidden = ['password'];
@@ -18,6 +18,11 @@ class Student extends Authenticatable
     public function paymentScheme()
     {
         return $this->hasOne(PaymentScheme::class);
+    }
+
+    public function grades()
+    {
+        return $this->hasMany(Grades::class, 'student_id', 'student_id');
     }
 }
 

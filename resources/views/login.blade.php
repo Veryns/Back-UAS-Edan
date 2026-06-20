@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Admin - KRRS UNTAR</title>
+    <title>Login Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -288,7 +288,7 @@
                         <label for="email">Email</label>
                         <div class="input-wrapper">
                             <i class="fa-solid fa-envelope"></i>
-                            <input type="email" id="email" name="email" placeholder="@untar.ac.id" required>
+                            <input type="email" id="email" name="email" placeholder="" required>
                         </div>
                     </div>
                     
