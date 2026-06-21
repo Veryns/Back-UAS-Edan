@@ -16,7 +16,11 @@ class UangKuliahController extends Controller
     }
 
     public function index(Request $request){
-        $student = Student::where('student_id', $request->student_id)->firstOrFail();
+        if(auth()->guard('student')->check()){
+            $student = auth()->guard('student')->user();
+        }else{
+            $student = Student::where('student_id', $request->student_id)->firstOrFail();
+        }
         $bills = Bill::where('student_id', $student->id)->with('payments')->get();
         $bills->each(function($bill){
             $bill->terlambat = $bill->hitungDenda(Carbon::today()->toDateString()) > 0;
@@ -25,14 +29,24 @@ class UangKuliahController extends Controller
     }
 
     public function showScheme(Request $request){
-        $student = Student::where('student_id', $request->student_id)->firstOrFail();
+        if(auth()->guard('student')->check()){
+            $student = auth()->guard('student')->user();
+        }else{
+            $student = Student::where('student_id', $request->student_id)->firstOrFail();
+        }
         $scheme = PaymentScheme::where('student_id', $student->id)->first();
         return view('uangkuliah.payment_scheme', compact('scheme', 'student'));
     }
 
     public function saveScheme(Request $request){
-        $student = Student::where('student_id', $request->student_id)->firstOrFail();
-
+        if(!auth()->guard('student')->check()){
+            abort(403);
+        }
+        if(auth()->guard('student')->check()){
+            $student = auth()->guard('student')->user();
+        }else{
+            $student = Student::where('student_id', $request->student_id)->firstOrFail();
+        }
         PaymentScheme::updateOrCreate(
             ['student_id' => $student->id],
             ['scheme_type' => $request->scheme]
@@ -58,6 +72,10 @@ class UangKuliahController extends Controller
             $sksTotalTermin = $sksBase + ($sksBase * 0.025);
             $this->createNewBill($student->id, 'SKS - Termin 1', $sksTotalTermin * 0.60, 90);
             $this->createNewBill($student->id, 'SKS - Termin 2', $sksTotalTermin * 0.40, 120);
+        }
+
+        if(auth()->guard('student')->check()){
+            return redirect('/uang-kuliah');
         }
 
         return redirect('/uang-kuliah?student_id=' . $request->student_id);

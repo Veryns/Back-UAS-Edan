@@ -6,6 +6,8 @@
     <h2 style="color:#941b1b;margin-bottom:20px;">
         Menu Uang Kuliah
     </h2>
+    {{-- hanya admin yang memilih mahasiswa --}}
+    @if(!auth()->guard('student')->check())
     <form method="GET" action="/uang-kuliah/menu">
         <label>
             <b>Pilih Mahasiswa</b>
@@ -28,8 +30,9 @@
             Pilih
         </button>
     </form>
+    @endif
 </div>
-@if(request('student_id'))
+@if(request('student_id') || auth()->guard('student')->check())
 <div class="menu-grid">
     <div class="menu-card">
         <h3>💳 Tagihan & Pembayaran</h3> {{-- windows + . -> ketik di search emoji credit card --}}
@@ -38,11 +41,15 @@
             deadline, dan status pembayaran.
         </p>
         <br>
-        <a
-            class="btn"
-            href="/uang-kuliah?student_id={{ request('student_id') }}">
-            Buka Menu
-        </a>
+        @if(auth()->guard('student')->check())
+            <a class="btn" href="/uang-kuliah">
+                Buka Menu
+            </a>
+        @else
+            <a class="btn" href="/uang-kuliah?student_id={{ request('student_id') }}">
+                Buka Menu
+            </a>
+        @endif
     </div>
     <div class="menu-card">
         <h3>📋 Skema Pembayaran</h3> {{-- windows + . -> ketik di search emoji clipboard --}}
@@ -51,9 +58,15 @@
             Full Payment atau Installment.
         </p>
         <br>
-        <a class="btn"href="/uang-kuliah/payment-scheme?student_id={{ request('student_id') }}">
-            Buka Menu
-        </a>
+        @if(auth()->guard('student')->check())
+            <a class="btn" href="/uang-kuliah/payment-scheme">
+                Buka Menu
+            </a>
+        @else
+            <a class="btn" href="/uang-kuliah/payment-scheme?student_id={{ request('student_id') }}">
+                Buka Menu
+            </a>
+        @endif
     </div>
     <div class="menu-card">
         <h3>⏳ Dispensasi</h3> {{-- windows + . -> ketik di search emoji hourglass --}}
@@ -62,16 +75,20 @@
             jatuh tempo pembayaran.
         </p>
         <br>
-        <a class="btn"href="/uang-kuliah/dispensasi?student_id={{ request('student_id') }}">
-            Buka Menu
-        </a>
+        @if(auth()->guard('student')->check())
+            <a class="btn" href="/uang-kuliah/dispensasi">
+                Buka Menu
+            </a>
+        @else
+            <a class="btn" href="/uang-kuliah/dispensasi?student_id={{ request('student_id') }}">
+                Buka Menu
+            </a>
+        @endif
     </div>
 </div>
 @endif
 <br>
-<a
-    href="{{ route('home') }}"
-    class="btn btn-secondary">
+<a href="{{ route('home') }}" class="btn btn-secondary">
     Kembali ke Home
 </a>
 @endsection
