@@ -27,8 +27,7 @@ Route::middleware('auth')->group(function () {
 | DELETE | `/students/{studentId}` | `auth` | Hapus mahasiswa |
 
 ---
-
-## Penjelasan Setiap Method
+## Penjelasan Setiap Method/Function
 
 ### 1. **index()** - GET /students
 
