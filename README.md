@@ -41,10 +41,22 @@ Daftar Endpoint
 - GET  /student/grades/{studentId}        - Nilai spesifik mahasiswa (auth.student)
 
 ## Mata Kuliah (Matkul)
-- Resource `matkul` (controller `MatkulController`) - CRUD untuk mata kuliah
+- GET    /matkul                 - Daftar matakuliah
+- GET    /matkul/create          - Form buat matakuliah
+- GET    /matkul/{matkul}        - Detail matakuliah
+- GET    /matkul/{matkul}/edit   - Form edit
+- POST   /matkul                 - Buat matakuliah
+- PUT    /matkul/{matkul}        - Update matakuliah
+- DELETE /matkul/{matkul}        - Hapus matakuliah
 
 ## SKPI
-- Resource `skpi` - Endpoint CRUD terkait SKPI
+- GET    /skpi                 - Daftar SKPI
+- GET    /skpi/create          - Form buat SKPI
+- GET    /skpi/{skpi}          - Detail SKPI
+- GET    /skpi/{skpi}/edit     - Form edit
+- POST   /skpi                 - Buat SKPI
+- PUT    /skpi/{skpi}          - Update SKPI
+- DELETE /skpi/{skpi}          - Hapus SKPI
 
 ## Uang Kuliah
 - GET  /uang-kuliah/                        - Daftar tagihan dan pembayaran mahasiswa
