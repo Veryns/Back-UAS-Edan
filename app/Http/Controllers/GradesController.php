@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\Grades;
 use Illuminate\Http\Request;
 
@@ -13,6 +13,11 @@ class GradesController extends Controller
      */
     public function store(Request $request)
     {
+
+        if (!Auth::check()) {
+            abort(403);
+        }
+
         $request->validate([
             'student_id' => 'required|exists:students,student_id',
             'matkul_id' => 'required|exists:matkul,id',
@@ -26,10 +31,16 @@ class GradesController extends Controller
             'type' => $request->type,
             'grade' => $request->grade
         ]);
+
+        return redirect('/home/grades');
     }
 
     public function destroy($id)
     {
+        if (!Auth::check()) {
+            abort(403);
+        }
+
         $grade = Grades::findOrFail($id);
 
         $grade->delete();
@@ -37,6 +48,8 @@ class GradesController extends Controller
         return response()->json([
             'message' => 'Grade deleted successfully'
         ]);
+
+        return redirect('/home/grades');
     }
 
     public function getUTS($studentId)
@@ -97,24 +110,24 @@ public function create()
 
 public function show($grade_id)
 {
-    $grade = Grades::findOrFail($id);
+    $grade = Grades::findOrFail($grade_id);
     return view('grades.show', compact('grade'));
 }
 
 public function edit($grade_id)
 {
-    $grade = Grades::findOrFail($id);
+    $grade = Grades::findOrFail($grade_id);
     return view('grades.edit', compact('grade'));
 }
 
 public function update(Request $request, $grade_id)
 {
-    $grade = Grades::findOrFail($id);
+    $grade = Grades::findOrFail($grade_id);
 
     $grade->update([
         'student_id' => $request->student_id,
-        'matkul_id'  => $request->matkul_id,
-        'grade'      => $request->grade
+        'matkul_id' => $request->matkul_id,
+        'grade' => $request->grade
     ]);
 
     return redirect('/home/grades');
@@ -130,6 +143,21 @@ public function getStudentGrades($studentId)
     }
 
     return view('grades.student_grades', compact('grades', 'studentId'));
+}
+
+public function studentGrades()
+{
+    $student = Auth::guard('student')->user();
+
+    $grades = Grades::where(
+        'student_id',
+        $student->student_id
+    )->get();
+
+    return view(
+        'grades.student_grades',
+        compact('grades')
+    );
 }
 
 

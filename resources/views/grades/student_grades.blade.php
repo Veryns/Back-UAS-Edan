@@ -1,4 +1,8 @@
-<h1>Nilai Student {{ $studentId }}</h1>
+@if(!$grades->isEmpty())
+    <h1>Nilai Student {{ $grades->first()->student_id }}</h1>
+@else
+    <h1>Nilai Student</h1>
+@endif
 
 <a href="{{ route('grades.index') }}">
     Kembali ke Daftar Nilai

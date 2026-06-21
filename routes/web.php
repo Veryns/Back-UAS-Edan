@@ -50,12 +50,16 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // route buat home
 Route::get('/home', [AuthController::class, 'home'])->name('home')->middleware('auth');
 
+// Grades untuk admin
 Route::middleware('auth')->group(function () {
 
-    Route::get('/grades/{studentId}', [GradesController::class, 'getStudentGrades']);
     Route::resource('/home/grades', GradesController::class);
-    
+
+    Route::get('/grades/{studentId}',
+        [GradesController::class, 'getStudentGrades']
+    )->name('grades.show');
 });
+
 
 Route::prefix('uang-kuliah')->group(function () {
     Route::get('/', [UangKuliahController::class, 'index']);
@@ -107,6 +111,5 @@ Route::middleware('auth.student')->group(function () {
     Route::get('/student/home', [StudentAuthController::class, 'home'])->name('student.home');
     Route::get('/student/announcements', [StudentAuthController::class, 'announcements'])->name('student.announcements.index');
     Route::get('/student/announcements/{announcement}', [StudentAuthController::class, 'announcementShow'])->name('student.announcements.show');
-    Route::get('/student/grades', [GradesController::class, 'index'])->name('student.grades');
-    Route::get('/student/grades/{studentId}', [GradesController::class, 'getStudentGrades'])->name('student.grades.show');
+    Route::get('/student/grades',[GradesController::class, 'studentGrades'])->name('student.grades');
 });
