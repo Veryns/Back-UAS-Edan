@@ -238,7 +238,7 @@
                 <!-- Kode Microsoft Teams -->
                 <div class="input-group" style="margin-bottom: 5px;">
                     <label><i class="fa-brands fa-microsoft"></i> Kode MS Teams (Opsional)</label>
-                    <input name="kodemsteam" value="{{ $matkul->kodemsteam }}" placeholder="Contoh: TI2025">
+                    <input name="kodemsteam" value="{{ $matkul->kodemsteam }}" placeholder="Contoh: TI2025sfsfs">
                 </div>
 
                 <div class="form-footer-actions">

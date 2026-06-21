@@ -32,7 +32,7 @@
 @if(request('student_id'))
 <div class="menu-grid">
     <div class="menu-card">
-        <h3>💳 Tagihan & Pembayaran</h3>
+        <h3>💳 Tagihan & Pembayaran</h3> {{-- windows + . -> ketik di search emoji credit card --}}
         <p>
             Lihat tagihan, virtual account,
             deadline, dan status pembayaran.
@@ -45,7 +45,7 @@
         </a>
     </div>
     <div class="menu-card">
-        <h3>📋 Skema Pembayaran</h3>
+        <h3>📋 Skema Pembayaran</h3> {{-- windows + . -> ketik di search emoji clipboard --}}
         <p>
             Pilih metode pembayaran
             Full Payment atau Installment.
@@ -56,7 +56,7 @@
         </a>
     </div>
     <div class="menu-card">
-        <h3>⏳ Dispensasi</h3>
+        <h3>⏳ Dispensasi</h3> {{-- windows + . -> ketik di search emoji hourglass --}}
         <p>
             Ajukan perpanjangan
             jatuh tempo pembayaran.
