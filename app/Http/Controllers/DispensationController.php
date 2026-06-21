@@ -11,7 +11,11 @@ use Carbon\Carbon;
 class DispensationController extends Controller
 {
     public function index(Request $request){
-        $student = Student::where('student_id',$request->student_id)->firstOrFail();
+        if(auth()->guard('student')->check()){
+            $student = auth()->guard('student')->user();
+        }else{
+            $student = Student::where('student_id',$request->student_id)->firstOrFail();
+        }
         $bills = Bill::where('student_id',$student->id)->where('status','Belum Lunas')->get();
         $dispensations = Dispensation::where('student_id',$student->id)->whereHas('bill')->latest()->get();
 
@@ -19,14 +23,18 @@ class DispensationController extends Controller
     }
 
     public function store(Request $request){
+
+        if(!auth()->guard('student')->check()){
+            abort(403);
+        }
+
         $request->validate([
             'bill_id' => 'required|exists:bills,id',
             'extension_days' => 'required|integer|min:1',
             'reason' => 'required|string',
-            'student_id' => 'required'
         ]);
-
-        $student = Student::where('student_id',$request->student_id)->firstOrFail();
+        
+        $student = auth()->guard('student')->user();
 
         Dispensation::create([
             'student_id' => $student->id,
@@ -40,6 +48,9 @@ class DispensationController extends Controller
     }
 
     public function approve($id){
+        if(auth()->guard('student')->check()){
+            abort(403);
+        }
         $dispensation = Dispensation::findOrFail($id);
         $dispensation->update(['status' => 'Approved']);
 
@@ -51,6 +62,9 @@ class DispensationController extends Controller
     }
 
     public function reject($id){
+        if(auth()->guard('student')->check()){
+            abort(403);
+        }
         $dispensation = Dispensation::findOrFail($id);
         $dispensation->update(['status' => 'Rejected']);
 
