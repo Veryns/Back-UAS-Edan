@@ -62,7 +62,7 @@ Daftar Endpoint
 ## IPK
 - GET /students/{student}/ipk - Tampilkan IPK mahasiswa
 
-## Pengumuman (Announcements)
+## [Pengumuman (Announcements)](Announcements.md)
 - Resource `announcements` (controller `AnnouncementController`) - dilindungi middleware `auth` (admin/staff):
 	- GET    /announcements            - Daftar pengumuman (tampilan admin)
 	- GET    /announcements/create     - Form buat pengumuman
