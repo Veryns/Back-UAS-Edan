@@ -44,6 +44,10 @@ class UangKuliahController extends Controller
         }
         if(auth()->guard('student')->check()){
             $student = auth()->guard('student')->user();
+            $hasPayment = Bill::where('student_id', $student->id)->whereHas('payments')->exists();
+            if($hasPayment){
+                return back()->with('error', 'Skema pembayaran tidak dapat diubah karena sudah terdapat pembayaran.');
+            }
         }else{
             $student = Student::where('student_id', $request->student_id)->firstOrFail();
         }

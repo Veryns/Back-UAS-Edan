@@ -14,6 +14,13 @@
 
     <br>
 
+    @if(session('error'))
+    <p style="color:red;">
+        {{ session('error') }}
+    </p>
+    <br>
+    @endif
+
     @if($scheme)
     <p>
         <b>Skema Saat Ini :</b>
