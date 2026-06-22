@@ -246,17 +246,6 @@
             display: inline;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            body { padding: 20px 10px; }
-            .table-header-section { flex-direction: column; text-align: center; gap: 15px; }
-            .btn-create { width: 100%; justify-content: center; }
-        }
     </style>
 </head>
 <body>

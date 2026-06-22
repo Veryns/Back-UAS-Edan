@@ -21,8 +21,6 @@ Route::middleware('auth')->group(function () {
 | GET | `/skpi/create` | - | Form buat SKPI baru |
 | POST | `/skpi` | - | Simpan SKPI baru |
 | GET | `/skpi/{id}` | - | Lihat detail SKPI |
-| GET | `/skpi/{id}/edit` | - | Form edit SKPI |
-| PUT | `/skpi/{id}` | - | Update data SKPI |
 | DELETE | `/skpi/{id}` | - | Hapus data SKPI |
 | GET | `/admin/skpi` | `auth` | Lihat daftar mahasiswa yang memiliki SKPI |
 | GET | `/admin/skpi/{studentId}` | `auth` | Lihat detail SKPI milik satu mahasiswa |
@@ -347,5 +345,5 @@ class Skpi extends Model
 3. **File Sertifikat:** File disimpan di disk `public` pada folder `skpi`. Saat update, file lama otomatis dihapus dari storage sebelum file baru disimpan.
 4. **Validasi Ukuran File Tidak Konsisten:** Batas ukuran file pada `store` adalah 10240 KB (10 MB), sedangkan pada `update` adalah 2048 KB (2 MB).
 5. **JSON Support:** Tidak ada dukungan response JSON pada controller ini (berbeda dengan endpoint Students), seluruh response berupa HTML view atau redirect.
-
+6. **Fungsi:** Beberapa fungsi di disable atau disembunyikan sesuai dengan fungsi dan otoritas dari login masing-masing.
 ---
