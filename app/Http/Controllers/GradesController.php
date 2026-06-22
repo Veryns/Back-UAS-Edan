@@ -204,14 +204,62 @@ public function studentGrades()
 {
     $student = Auth::guard('student')->user();
 
-    $grades = Grades::where(
-        'student_id',
-        $student->student_id
-    )->get();
+    $grades = Grades::where('student_id', $student->student_id)
+                    ->orderBy('matkul_id')
+                    ->get();
+
+    $ipkData = [];
+
+    $grouped = $grades->groupBy(function ($grade) {
+        return $grade->student_id . '-' . $grade->matkul_id;
+    });
+
+    foreach ($grouped as $key => $items) {
+
+        $tugas = $items->firstWhere('type', 'TUGAS');
+        $uts   = $items->firstWhere('type', 'UTS');
+        $uas   = $items->firstWhere('type', 'UAS');
+
+        if ($tugas && $uts && $uas) {
+
+            $finalScore =
+                ($tugas->grade * 0.40) +
+                ($uts->grade * 0.30) +
+                ($uas->grade * 0.30);
+
+            if ($finalScore >= 85) {
+                $ipk = 4.00;
+            } elseif ($finalScore >= 80) {
+                $ipk = 3.70;
+            } elseif ($finalScore >= 75) {
+                $ipk = 3.30;
+            } elseif ($finalScore >= 70) {
+                $ipk = 3.00;
+            } elseif ($finalScore >= 65) {
+                $ipk = 2.70;
+            } elseif ($finalScore >= 60) {
+                $ipk = 2.30;
+            } elseif ($finalScore >= 55) {
+                $ipk = 2.00;
+            } elseif ($finalScore >= 50) {
+                $ipk = 1.70;
+            } elseif ($finalScore >= 45) {
+                $ipk = 1.00;
+            } else {
+                $ipk = 0.00;
+            }
+
+            $ipkData[$key] = $ipk;
+
+        } else {
+
+            $ipkData[$key] = null;
+        }
+    }
 
     return view(
         'grades.student_grades',
-        compact('grades')
+        compact('grades', 'ipkData')
     );
 }
 
