@@ -26,13 +26,25 @@ class SkpiController extends Controller
         $studentId = Auth::guard('student')->user()->student_id;
 
         $request->validate([
-            'file_sertifikat' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'kategori'        => 'required|string',
+            'kegiatan'        => 'required|string',
+            'tingkat'         => 'required|string',
+            'klasifikasi'     => 'required|string',
+            'periode_mulai'   => 'required|date',
+            'periode_selesai' => 'required|date',
+            'file_sertifikat' => 'required|file|mimes:pdf,jpg,jpeg,png|max:10240',
         ]);
 
         $filePath = $request->file('file_sertifikat')->store('skpi', 'public');
 
         Skpi::create([
             'student_id'      => $studentId,
+            'kategori'        => $request->kategori,
+            'kegiatan'        => $request->kegiatan,
+            'tingkat'         => $request->tingkat,
+            'klasifikasi'     => $request->klasifikasi,
+            'periode_mulai'   => $request->periode_mulai,
+            'periode_selesai' => $request->periode_selesai,
             'file_sertifikat' => $filePath,
         ]);
 
@@ -84,4 +96,23 @@ class SkpiController extends Controller
 
         return redirect()->route('skpi.index');
     }
+    public function adminIndex(Request $request)
+    {
+        $query = \App\Models\Student::whereHas('skpis');
+
+        if ($request->filled('nim')) {
+            $query->where('student_id', 'like', '%' . $request->nim . '%');
+        }
+
+        $students = $query->paginate(10)->withQueryString();
+
+        return view('skpi.admin-index', compact('students'));
+    }
+
+    public function adminShow($studentId)
+    {
+        $student = \App\Models\Student::where('student_id', $studentId)->firstOrFail();
+        $skpis = Skpi::where('student_id', $studentId)->get();
+        return view('skpi.admin-show', compact('student', 'skpis'));
+}
 }

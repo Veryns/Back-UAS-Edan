@@ -24,5 +24,9 @@ class Student extends Authenticatable
     {
         return $this->hasMany(Grades::class, 'student_id', 'student_id');
     }
+    public function skpis()
+    {
+        return $this->hasMany(Skpi::class, 'student_id', 'student_id');
+    }
 }
 

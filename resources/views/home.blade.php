@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - LINTAR UNTAR</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -124,36 +124,6 @@
             gap: 14px;
             background-color: rgba(0, 0, 0, 0.1);
             border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .sidebar-camp-card {
-            position: relative;
-            width: 100%;
-            height: 90px;
-            border-radius: 8px;
-            background: url("image_1339a9.jpg") no-repeat center center/cover;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-
-        .sidebar-camp-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(360deg, rgba(110, 16, 16, 0.9) 0%, rgba(0, 0, 0, 0.2) 100%);
-        }
-
-        .sidebar-camp-text {
-            position: absolute;
-            bottom: 8px;
-            left: 10px;
-            right: 10px;
-            color: #ffffff;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
 
         /* Tombol Logout */
@@ -293,10 +263,10 @@
                 </button>
             </a>
 
-            <a href="{{ route('skpi.index') }}">
+            <a href="{{ route('admin.skpi.index') }}">
                 <button class="menu-item">
                     <i class="fa-solid fa-file-invoice"></i>
-                    <span>SKPI</span>
+                    <span>SKPI Mahasiswa</span>
                 </button>
             </a>
         </ul>
@@ -310,7 +280,6 @@
 
     </div>
 
-
     <div class="main-content">
         
         <div class="top-navbar">
@@ -323,8 +292,6 @@
         <div class="content-body">
             <div class="welcome-card">
                 <h1>Halo, {{ Auth::user()->name }}!</h1>
-                <p></p>
-            </div>
         </div>
 
     </div>

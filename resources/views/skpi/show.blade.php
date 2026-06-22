@@ -3,18 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail SKPI - LINTAR UNTAR</title>
+    <title>Detail SKPI</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
 
         body {
             min-height: 100vh;
@@ -39,19 +33,17 @@
             content: '';
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(15, 23, 42, 0.6); 
+            background: rgba(15, 23, 42, 0.6);
             z-index: -1;
         }
 
         .detail-container {
             width: 100%;
-            max-width: 550px;
+            max-width: 580px;
             background: #ffffff;
             border-radius: 16px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
-            border: 1px solid rgba(255, 255, 255, 0.8);
             overflow: hidden;
-            animation: slideUp 0.4s ease-out;
         }
 
         .detail-header {
@@ -63,75 +55,58 @@
             gap: 15px;
         }
 
-        .detail-header i {
-            font-size: 1.8rem;
-            color: #ffcc00;
+        .detail-header i { font-size: 1.8rem; color: #ffcc00; }
+        .detail-header h1 { font-size: 1.5rem; color: #ffffff; font-weight: 800; }
+        .detail-header p { font-size: 0.8rem; color: rgba(255,255,255,0.85); margin-top: 2px; }
+
+        .detail-body { padding: 35px; }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #f1f5f9;
         }
 
-        .detail-header h1 {
-            font-size: 1.5rem;
-            color: #ffffff;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-        }
+        .info-row:last-of-type { border-bottom: none; }
 
-        .detail-header p {
+        .info-row-label {
             font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.85);
-            margin-top: 2px;
-        }
-
-        .detail-body {
-            padding: 35px;
-        }
-
-        .info-card {
-            background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .info-card .icon-wrapper {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-        }
-
-        .icon-success {
-            background-color: #fef2f2;
-            color: #b91c1c;
-            border: 1px solid #fee2e2;
-        }
-
-        .icon-empty {
-            background-color: #f1f5f9;
-            color: #94a3b8;
-            border: 1px solid #e2e8f0;
-        }
-
-        .info-label {
-            font-size: 0.85rem;
             font-weight: 700;
-            color: #64748b;
+            color: #94a3b8;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .info-value {
-            font-size: 1.1rem;
+        .info-row-value {
+            font-size: 0.9rem;
             font-weight: 700;
             color: #1e293b;
+            text-align: right;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .badge-kategori { background: #eff6ff; color: #1d4ed8; }
+        .badge-tingkat { background: #f0fdf4; color: #15803d; }
+
+        .file-section {
+            margin-top: 24px;
+            padding: 20px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            text-align: center;
         }
 
         .btn {
@@ -150,83 +125,69 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             width: 100%;
+            margin-top: 8px;
         }
 
-        .btn-view {
-            background-color: #b91c1c;
-            color: #ffffff;
-            box-shadow: 0 4px 12px rgba(185, 28, 28, 0.15);
-            margin-top: 5px;
-        }
-
-        .btn-view:hover {
-            background-color: #991b1b;
-            box-shadow: 0 4px 15px rgba(185, 28, 28, 0.3);
-            transform: translateY(-1px);
-        }
-
-        .btn-back {
-            background-color: #ffffff;
-            color: #64748b;
-            border: 1px solid #cbd5e1;
-            margin-top: 12px;
-        }
-
-        .btn-back:hover {
-            background-color: #f1f5f9;
-            color: #334155;
-        }
-
-
+        .btn-view { background-color: #b91c1c; color: #ffffff; }
+        .btn-view:hover { background-color: #991b1b; }
+        .btn-back { background-color: #ffffff; color: #64748b; border: 1px solid #cbd5e1; margin-top: 12px; }
+        .btn-back:hover { background-color: #f1f5f9; }
     </style>
 </head>
 <body>
 
     <div class="detail-container">
-        
         <div class="detail-header">
             <i class="fa-solid fa-circle-info"></i>
             <div>
-                <h1>Detail Informasi SKPI</h1>
-                <p>Verifikasi lampiran file sertifikat</p>
+                <h1>Detail SKPI</h1>
+                <p>Informasi lengkap sertifikat pendamping ijazah</p>
             </div>
         </div>
 
-        <!-- Bagian Isi Utama -->
         <div class="detail-body">
-            
-            <div class="info-card">
+
+            <div class="info-row">
+                <span class="info-row-label"><i class="fa-solid fa-list"></i> Kategori</span>
+                <span class="info-row-value"><span class="badge badge-kategori">{{ $skpi->kategori }}</span></span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-row-label"><i class="fa-solid fa-flag"></i> Kegiatan</span>
+                <span class="info-row-value">{{ $skpi->kegiatan }}</span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-row-label"><i class="fa-solid fa-earth-asia"></i> Tingkat</span>
+                <span class="info-row-value"><span class="badge badge-tingkat">{{ $skpi->tingkat }}</span></span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-row-label"><i class="fa-solid fa-trophy"></i> Klasifikasi</span>
+                <span class="info-row-value">{{ $skpi->klasifikasi }}</span>
+            </div>
+
+            <div class="info-row">
+                <span class="info-row-label"><i class="fa-solid fa-calendar"></i> Periode</span>
+                <span class="info-row-value">{{ $skpi->periode_mulai }} s/d {{ $skpi->periode_selesai }}</span>
+            </div>
+
+            <div class="file-section">
                 @if($skpi->file_sertifikat)
-                    <!-- Tampilan Jika file Tersedia -->
-                    <div class="icon-wrapper icon-success">
-                        <i class="fa-solid fa-file-pdf"></i>
-                    </div>
-                    <div>
-                        <p class="info-label">Status Dokumen</p>
-                        <p class="info-value">Sertifikat Tersedia</p>
-                    </div>
-                    
-                    <!-- Link Lihat file Asli -->
+                    <i class="fa-solid fa-file-pdf" style="font-size:2rem; color:#b91c1c;"></i>
+                    <p style="margin-top:8px; font-size:0.85rem; color:#64748b; font-weight:600;">File sertifikat tersedia</p>
                     <a href="{{ asset('storage/' . $skpi->file_sertifikat) }}" target="_blank" class="btn btn-view">
                         <i class="fa-solid fa-arrow-up-right-from-square"></i> Lihat File Dokumen
                     </a>
                 @else
-                    <!-- Tampilan Jika file Kosong -->
-                    <div class="icon-wrapper icon-empty">
-                        <i class="fa-solid fa-file-circle-xmark"></i>
-                    </div>
-                    <div>
-                        <p class="info-label">Status Dokumen</p>
-                        <p class="info-value" style="color: #94a3b8; font-style: italic;">Tidak ada file dilampirkan</p>
-                    </div>
+                    <i class="fa-solid fa-file-circle-xmark" style="font-size:2rem; color:#94a3b8;"></i>
+                    <p style="margin-top:8px; font-size:0.85rem; color:#94a3b8; font-style:italic;">Tidak ada file dilampirkan</p>
                 @endif
             </div>
 
-            <!-- Tombol Kembali Ke Halaman Indeks SKPI -->
             <a href="{{ route('skpi.index') }}" class="btn btn-back">Kembali ke Daftar</a>
 
         </div>
-
     </div>
 
 </body>

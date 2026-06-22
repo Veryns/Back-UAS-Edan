@@ -87,6 +87,10 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.st
 
 // route untuk skpi
 Route::resource('skpi', SkpiController::class);
+Route::middleware('auth')->group(function () {
+    Route::get('/admin/skpi', [SkpiController::class, 'adminIndex'])->name('admin.skpi.index');
+    Route::get('/admin/skpi/{studentId}', [SkpiController::class, 'adminShow'])->name('admin.skpi.show');
+});
 
 //route w5
 Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
