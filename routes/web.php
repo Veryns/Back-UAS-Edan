@@ -72,14 +72,16 @@ Route::prefix('uang-kuliah')->group(function () {
     Route::post('/dispensasi/{id}/reject', [DispensationController::class, 'reject']);
 });
 
-// route untuk matkul ga tau kenapa setelah say mencoba untuk memperbaiki error solusi nya adalah dengan menonaktifkan route ini
-// Route::get('/matkul',[MatkulController::class, 'index']);
-// Route::get('/matkul/{id}',[MatkulController::class, 'show']);
-// Route::get('/matkul/create', [MatkulController::class, 'create']);
-// Route::post('/matkul',[MatkulController::class, 'store']);
-// Route::put('/matkul/{id}',[MatkulController::class, 'update']);
-// Route::delete('/matkul{id}',[MatkulController::class, 'destroy']);
-Route::resource('matkul', MatkulController::class);
+// route untuk matkul
+Route::middleware('auth')->group(function () {
+    Route::get('/matkul/create', [MatkulController::class, 'create'])->name('matkul.create');
+    Route::post('/matkul', [MatkulController::class, 'store'])->name('matkul.store');
+    Route::get('/matkul/{id}/edit', [MatkulController::class, 'edit'])->name('matkul.edit');
+    Route::put('/matkul/{id}', [MatkulController::class, 'update'])->name('matkul.update');
+    Route::delete('/matkul/{id}', [MatkulController::class, 'destroy'])->name('matkul.destroy');
+});
+
+Route::resource('matkul', MatkulController::class)->only(['index', 'show']);
 
 // route untuk register
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
