@@ -383,5 +383,4 @@ class Student extends Model
 3. **Keamanan Password:** Password disimpan dalam bentuk hash menggunakan `Hash::make()`.
 4. **JSON Support:** Semua endpoint support baik HTML maupun JSON response (gunakan header `Accept: application/json` untuk JSON).
 5. **Update Terbatas:** Endpoint update hanya mengizinkan perubahan `address` dan `phone_number`.
-
 ---

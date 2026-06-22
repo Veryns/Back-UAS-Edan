@@ -267,5 +267,5 @@ class Matkul extends Model
 3. **Validasi Update:** Method `update()` saat ini belum memiliki validasi input. Disarankan menambahkan validasi agar konsisten dengan `store()`.
 4. **Error Handling:** Semua lookup menggunakan `findOrFail()` yang otomatis mengembalikan error 404 jika data tidak ditemukan.
 5. **Relasi:** Model `Matkul` memiliki relasi `hasMany` ke model `Grades`.
-
+6. **Fungsi:** Beberapa fungsi di disable atau disembunyikan sesuai dengan fungsi dan otoritas dari login masing-masing.
 ---
