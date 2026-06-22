@@ -17,9 +17,10 @@ document.getElementById('studentSearch').addEventListener('submit', function(e) 
 
 <br>
 
+
 <h1>Daftar Nilai</h1>
 
-@if(Auth::guard('student')->guest())
+@if(!Auth::guard('student')->check())
     <a href="{{ route('grades.create') }}">
         Tambah Nilai
     </a>
