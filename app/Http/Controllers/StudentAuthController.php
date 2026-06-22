@@ -35,6 +35,12 @@ class StudentAuthController extends Controller
         return view('student.home', compact('announcements'));
     }
 
+    public function announcements()
+    {
+        $announcements = Announcement::latest()->get();
+        return view('student.announcements.index', compact('announcements'));
+    }
+
     public function announcementShow(Announcement $announcement)
     {
         return view('student.announcements.show', compact('announcement'));
