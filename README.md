@@ -58,7 +58,7 @@ Daftar Endpoint
 - PUT    /skpi/{skpi}          - Update SKPI
 - DELETE /skpi/{skpi}          - Hapus SKPI
 
-## Uang Kuliah
+## [Uang Kuliah](UangKuliah.md)
 - GET  /uang-kuliah/                        - Daftar tagihan dan pembayaran mahasiswa
 - GET  /uang-kuliah/menu                    - Menu uang kuliah
 - GET  /uang-kuliah/payment-scheme          - Tampilkan pilihan skema pembayaran
