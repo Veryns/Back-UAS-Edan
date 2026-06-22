@@ -41,6 +41,7 @@ document.getElementById('studentSearch').addEventListener('submit', function(e) 
             <th>Matkul ID</th>
             <th>Tipe</th>
             <th>Nilai</th>
+            <th>IPK</th>
 
             @if(Auth::guard('student')->guest())
                 <th>Aksi</th>
@@ -69,6 +70,16 @@ document.getElementById('studentSearch').addEventListener('submit', function(e) 
                 <td>{{ $grade->type }}</td>
 
                 <td>{{ $grade->grade }}</td>
+
+                @php
+                $key = $grade->student_id . '-' . $grade->matkul_id;
+                @endphp
+
+                <td>
+                    @if(isset($ipkData[$key]) && $ipkData[$key] !== null)
+                        {{ number_format($ipkData[$key], 2) }}
+                    @endif
+                </td>
 
                 @if(Auth::guard('student')->guest())
                 <td>
