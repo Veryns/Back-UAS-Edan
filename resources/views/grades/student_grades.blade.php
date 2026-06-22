@@ -4,9 +4,7 @@
     <h1>Nilai Student</h1>
 @endif
 
-<a href="{{ route('grades.index') }}">
-    Kembali ke Daftar Nilai
-</a>
+<a href="{{ route('home') }}">Kembali ke Home</a>
 
 <br><br>
 
