@@ -10,6 +10,12 @@ class Skpi extends Model
 
     protected $fillable = [
         'student_id',
+        'kategori',
+        'kegiatan',
+        'tingkat',
+        'klasifikasi',
+        'periode_mulai',
+        'periode_selesai',
         'file_sertifikat',
     ];
 }
