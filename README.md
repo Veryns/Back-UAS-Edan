@@ -49,7 +49,7 @@ Daftar Endpoint
 - PUT    /matkul/{matkul}        - Update matakuliah
 - DELETE /matkul/{matkul}        - Hapus matakuliah
 
-## SKPI
+## [SKPI](SKPI.md)
 - GET    /skpi                 - Daftar SKPI
 - GET    /skpi/create          - Form buat SKPI
 - GET    /skpi/{skpi}          - Detail SKPI
