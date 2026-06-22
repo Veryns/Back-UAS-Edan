@@ -16,7 +16,7 @@ document.getElementById('studentSearch').addEventListener('submit', function(e) 
 </script>
 
 <br>
-
+<a href="{{ route('home') }}">Kembali ke Home</a>
 
 <h1>Daftar Nilai</h1>
 
